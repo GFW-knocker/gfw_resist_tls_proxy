@@ -76,8 +76,11 @@ another setup might be:<br>
 
 
 # we are working on it to adjast parameters better
-stay tuned!
+it might be slow at initiating tls handshake<br>
+but we make it better by setting up persistent TLS and more<br>
+stay tuned!<br>
 
 # need help to implement it into v2ray clients or xray-core
+any ideas are welcome<br>
 
 
