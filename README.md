@@ -32,13 +32,13 @@ also its based on DNS-over-HTTPS which is already filtered by GFW<br>
 cloudflare IPs are high traffic and 30% of web is behind them<br>
 so GFW cant simply block them by traffic volume<br>
 and all traffic is encrypted except client hello which leak server name (SNI)<br>
-so GFW extract sni from client hello and when SNI is in white list it pass<br>
-otherwise it send TCP-RST to terminate tcp socket<br>
-
-![Alt text](/asset/youtube-filtered.png?raw=true "youtube is in backlist")
-<br>
+<br><br>
+so GFW extract sni from client hello and when SNI is in white list it pass<br><br>
 ![Alt text](/asset/plos-not-filtered.png?raw=true "plos.org is in whitelist")
-<br>
+<br><br>
+otherwise it send TCP-RST to terminate tcp socket<br><br>
+![Alt text](/asset/youtube-filtered.png?raw=true "youtube is in backlist")
+<br><br>
 
 
 # required for test
