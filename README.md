@@ -20,7 +20,7 @@ to cache TBs of data in high speed router so they MUST give up or break the whol
 
 
 
-# about SNI , ESNI & ECH (not important)
+# about SNI , ESNI & ECH (skip if you want)
 leaking domain name (SNI) is the old famous bug of tls protocol which is not fixed yet as of 2023<br>
 some attempt started few years ago is try to encrypt sni called ESNI which is deprecated today<br>
 cloudflare stop supporting esni in summer 2022<br>
@@ -28,13 +28,17 @@ another way is Encrypted Client Hello (ECH) which is in draft version and well-d
 i make much effort to use ECH but its too complex and still is in development<br>
 also its based on DNS-over-HTTPS which is already filtered by GFW<br>
 
-# about GFW SNI filtering on cloudflare IPs
+# about GFW SNI filtering on cloudflare IPs (skip if you want)
 cloudflare IPs are high traffic and 30% of web is behind them<br>
 so GFW cant simply block them by traffic volume<br>
 and all traffic is encrypted except client hello which leak server name (SNI)<br>
 so GFW extract sni from client hello and when SNI is in white list it pass<br>
 otherwise it send TCP-RST to terminate tcp socket<br>
 
+![Alt text](/asset/youtube-filtered.png?raw=true "youtube is in backlist")
+<br>
+![Alt text](/asset/plos-not-filtered.png?raw=true "plos.org is in whitelist")
+<br>
 
 
 # required for test
