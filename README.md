@@ -3,10 +3,18 @@
 سلام گرم به همه دوستانی که برای حق اولیه و ابتدایی شهروندی ، برای دسترسی به اینترنت ، تلاش میکنند
 <br>
 سلام به هیدیفای،باشسیز،سگارو،آی آر سی اف ، پروژه امید، یوتیوبرها و همه عزیزان دوست داشتنی
-<br>
+<br><br>
 روش این پیج یک زخم عمیق بر پیکر  GFW  می گذارد که تا سالها سوزش آن در ماتحت فیلترچیان دنیا باقی خواهد ماند
 <br>
 <br>
+خلاصه کار به فارسی:<br>
+روترهای gfw نمیتوانند packet های fragment را سرهم کنند<br>
+چرا؟ چون کل ترافیک کشور ازشون عبور میکنه و براشون سخته و cache  محدود دارند و باید سریع باشند<br>
+سرورها ولی موظف به سرهم کردن fragment ها هستند چون در پروتکل ip قید شده<br>
+سرورهای کلودفلر به خوبی این کارو انجام میدن<br>
+باور کنید یا نکنید کار gfw ساختس<br>
+
+
 # goodbye SNI filtering & goodbye GFW mf'er
 <img src="/asset/meme1.jpg?raw=true" width="300" >
 <br><br>
@@ -74,11 +82,11 @@ another setup might be:<br>
 <code>fragment_size=17 byte  ,  fragment_sleep=0.03 sec -> too small chunk with less delay -> work good</code><br>
 <code>too big chunk -> assembled by GFW -> TCP-RST recieved</code><br>
 <code>too small delay  -> assembled by GFW -> TCP-RST recieved</code><br>
-
+7. just surf the filtered web and enjoy!<br>
 
 # we are working on it to adjast parameters better
 it might be slow at initiating tls handshake<br>
-but we make it better by setting up persistent TLS and more<br>
+but we make it better by setting up persistent TLS<br>
 stay tuned!<br>
 
 # need help to implement it into v2ray clients or xray-core
