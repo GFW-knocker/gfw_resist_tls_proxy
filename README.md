@@ -40,6 +40,19 @@ otherwise it send TCP-RST to terminate tcp socket<br><br>
 ![Alt text](/asset/youtube-filtered.png?raw=true "youtube is in backlist")
 <br><br>
 
+# about packet fragment (skip if you want)
+we hide sni by fragmenting client hello packet into several chunk.<br>
+but GFW already know this and try to assemble those chunk to find SNI! LOL
+but we add time delay between fragment. LOL
+since cloudflare IPs have too much traffic , GFW cant wait too long. LOL
+GFW high-speed cache is limited so it cant cache TBs of data looking for a tiny tcp fragment. LOL
+so it forget those fragments after a second. LOL
+its impossible to looking in huge traffic for a packet didnt know when or where it arrive. LOL
+so it Give up.
+
+
+
+
 
 # required for test
 python 3<br>
