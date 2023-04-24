@@ -7,6 +7,7 @@
 روش این پیج یک زخم عمیق بر پیکر  GFW  می گذارد که تا سالها سوزش آن در ماتحت فیلترچیان دنیا باقی خواهد ماند
 <br>
 <br>
+# goodbye SNI filtering & goodbye GFW mf'er
 <img src="/asset/meme1.jpg?raw=true" width="300" >
 <br><br>
 
@@ -52,23 +53,28 @@ but we add time delay between fragment. LOL<br>
 since cloudflare IPs have too much traffic , GFW cant wait too long. LOL<br>
 GFW high-speed cache is limited so it cant cache TBs of data looking for a tiny tcp fragment. LOL<br>
 so it forget those fragments after a second. LOL<br>
-its impossible to looking in huge traffic for a packet didnt know when or where it arrive. LOL<br>
-so it forced Give up.<br>
+its impossible to looking at huge traffic for a packet didnt know when or where it arrive. LOL<br>
+so it forced to Give up. LOL<br>
 
 # how to run
-on your local machine run
-<code>python pyprox_tcp.py</code>
-setup your v2ray client to forward to 127.0.0.1:listen_port
-monitor traffic by wireshark
-adjast fragment_delay
+1. assume that you have cv2ray config {websocket+tls+Cloudflare}<br>
+2. setup your pyprox listen port and cloudflare ip<br>
+<img src="/asset/pyprox_tcp_setup.png?raw=true" width="400" ><br>
+3. setup your v2ray client to forward to 127.0.0.1:listen_port<br>
+<img src="/asset/v2rayng_setup.png?raw=true" width="400" ><br>
+4. on your local machine run<br>
+<code>python pyprox_tcp.py</code><br>
+5. monitor traffic by wireshark or microsoft network monitor<br>
+6. adjast fragment_size & fragment_sleep<br>
+typical Client Hello packet is ~300 byte<br>
+we split 300 into {77+77+77+69} and send each by delay of 0.2 second<br>
+<code>fragment_size=77 byte  ,  fragment_sleep=0.2 sec -> moderate packet size with moderate delay -> work good</code><br>
+another setup might be:<br>
+<code>fragment_size=17 byte  ,  fragment_sleep=0.03 sec -> too small chunk with less delay -> work good</code><br>
+<code>too big chunk -> assembled by GFW -> TCP-RST recieved</code><br>
+<code>too small delay  -> assembled by GFW -> TCP-RST recieved</code><br>
 
 
-
-
-
-
-# required for test
-python 3<br>
-wireshark or microsoft network monitor<br>
-
+# we are working on it to adjast parameters better
+stay tuned!
 
