@@ -30,7 +30,7 @@ to cache TBs of data in high speed router , so they MUST give up or break the wh
 leaking domain name (SNI) is the old famous bug of tls protocol which is not fixed yet as of 2023<br>
 some attempt started few years ago , was trying to encrypt sni called ESNI which is deprecated today<br>
 cloudflare stop supporting esni in summer 2022<br>
-another way is Encrypted Client Hello (ECH) which is in draft version and well-documented<br>
+another way is Encrypted Client Hello (ECH) which is in draft version and not well-documented<br>
 i make much effort to use ECH but its too complex and still is in development<br>
 also its based on DNS-over-HTTPS which is already filtered by GFW<br>
 
