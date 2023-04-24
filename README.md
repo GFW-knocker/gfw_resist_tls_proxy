@@ -70,6 +70,7 @@ typical Client Hello packet is ~300 byte<br>
 we split 300 into {77+77+77+69} and send each by delay of 0.3 second<br>
 <code>fragment_size=77 byte  ,  fragment_sleep=0.3 sec -> moderate packet size with moderate delay -> work good</code><br>
 another setup might be:<br>
+<code>fragment_size=77 byte  ,  fragment_sleep=0.2 sec -> moderate packet size with moderate delay -> work nice</code><br>
 <code>fragment_size=17 byte  ,  fragment_sleep=0.03 sec -> too small chunk with less delay -> work good</code><br>
 <code>too big chunk -> assembled by GFW -> TCP-RST recieved</code><br>
 <code>too small delay  -> assembled by GFW -> TCP-RST recieved</code><br>
