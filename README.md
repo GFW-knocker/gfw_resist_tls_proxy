@@ -6,6 +6,9 @@
 <br>
 روش این پیج یک زخم عمیق بر پیکر  GFW  می گذارد که تا سالها سوزش آن در ماتحت فیلترچیان دنیا باقی خواهد ماند
 <br>
+<br>
+<img src="/asset/meme1.jpg?raw=true" width="300" >
+<br><br>
 
 # main Idea:
 in TLS protocol (even latest v1.3)  SNI transfered in plain-text<br>
@@ -17,7 +20,9 @@ we fragment TLS client Hello packet into chunks in a simple manner<br>
 we show that it pass the firewall<br>
 more importantly we show that GFW cant fix it because its nearly impossible <br>
 to cache TBs of data in high speed router so they MUST give up or break the whole network<br>
-
+<br>
+<img src="/asset/slide1.png?raw=true" width="600" >
+<br><br>
 
 
 # about SNI , ESNI & ECH (skip if you want)
