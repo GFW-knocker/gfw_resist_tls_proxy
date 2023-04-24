@@ -14,13 +14,13 @@
 # main Idea:
 in TLS protocol (even latest v1.3)  SNI transfered in plain-text<br>
 GFW find it and when SNI is not in whitelist reply with TCP-RST<br>
-so it filter cloudflare ip based on SNI such that some popular sites<br>
-like plos.org be open and all others closed through that ip<br>
+so it filter cloudflare-ip , based on SNI , such that some popular sites<br>
+like plos.org is open , and all other sites closed , through that ip<br>
 so we need to hide SNI from GFW<br>
-we fragment TLS client Hello packet into chunks in a simple manner<br>
+we fragment TLS "client Hello" packet into chunks in a simple manner<br>
 we show that it pass the firewall<br>
-more importantly we show that GFW cant fix it because its nearly impossible <br>
-to cache TBs of data in high speed router so they MUST give up or break the whole network<br>
+more importantly we show that GFW cant fix it because its nearly impossible<br>
+to cache TBs of data in high speed router , so they MUST give up or break the whole network<br>
 <br>
 <img src="/asset/slide1.png?raw=true" width="600" >
 <br><br>
@@ -28,7 +28,7 @@ to cache TBs of data in high speed router so they MUST give up or break the whol
 
 # about SNI , ESNI & ECH (skip if you want)
 leaking domain name (SNI) is the old famous bug of tls protocol which is not fixed yet as of 2023<br>
-some attempt started few years ago is try to encrypt sni called ESNI which is deprecated today<br>
+some attempt started few years ago , was trying to encrypt sni called ESNI which is deprecated today<br>
 cloudflare stop supporting esni in summer 2022<br>
 another way is Encrypted Client Hello (ECH) which is in draft version and well-documented<br>
 i make much effort to use ECH but its too complex and still is in development<br>
