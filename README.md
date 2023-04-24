@@ -42,7 +42,7 @@ and all traffic is encrypted except client hello which leak server name (SNI)<br
 so GFW extract sni from client hello and when SNI is in white list it pass<br><br>
 ![Alt text](/asset/plos-not-filtered.png?raw=true "plos.org is in whitelist")
 <br><br>
-otherwise it send TCP-RST to terminate tcp socket<br><br>
+if SNI in in blacklist , GFW send TCP-RST to terminate tcp socket<br><br>
 ![Alt text](/asset/youtube-filtered.png?raw=true "youtube is in backlist")
 <br><br>
 
@@ -77,4 +77,7 @@ another setup might be:<br>
 
 # we are working on it to adjast parameters better
 stay tuned!
+
+# need help to implement it into xray-core of v2ray clients
+
 
