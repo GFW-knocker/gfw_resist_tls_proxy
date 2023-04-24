@@ -8,11 +8,17 @@
 <br>
 <br>
 خلاصه کار به فارسی:<br>
-روترهای gfw نمیتوانند packet های fragment را سرهم کنند<br>
+روترهای gfw تلاش میکنند اما نمیتوانند همه packet های fragment را سرهم کنند زمانی که delay بین پکت ها باشد<br>
 چرا؟ چون کل ترافیک کشور ازشون عبور میکنه و براشون سخته و cache  محدود دارند و باید سریع باشند<br>
-سرورها ولی موظف به سرهم کردن fragment ها هستند چون در پروتکل ip قید شده<br>
-سرورهای کلودفلر به خوبی این کارو انجام میدن<br>
+از طرفی gfw نمیتونه پکت های فرگمنت رو reject کنه چون اولا fragmet جزو اصول شبکه هست ثانیا در خیلی از نت های ضعیف packet ها تکه میشوند<br>
+در صورت reject کردن نت بسیاری از گوشی های قدیمی و خطوط ضعیف مختل میشه<br>
+و اینو gfw میدونه بنابراین سعی میکنه اسمبل کنه و اگر نتونه عبور میده<br> 
+سرورها ولی موظف به سرهم کردن fragment ها هستند چون در پروتکل ip قید شده و سرشون به اندازه gfw شلوغ نیست<br>
+سرورهای کلودفلر به خوبی این کارو میکنن<br>
 باور کنید یا نکنید کار gfw ساختس<br>
+این سیستم تست شده و کار میکنه<br>
+با اندکی تنظیمات ، سرعت handshake اول هم بالا خواهد رفت<br>
+اینترنت برای همه یا برای هیچکس<br>
 
 
 # goodbye SNI filtering & goodbye GFW mf'er
@@ -82,7 +88,7 @@ another setup might be:<br>
 <code>fragment_size=17 byte  ,  fragment_sleep=0.03 sec -> too small chunk with less delay -> work good</code><br>
 <code>too big chunk -> assembled by GFW -> TCP-RST recieved</code><br>
 <code>too small delay  -> assembled by GFW -> TCP-RST recieved</code><br>
-7. just surf the filtered web and enjoy!<br>
+7. just surf the web using your filtered sni and a dirty cloudflare IP !<br>
 
 # we are working on it to adjast parameters better
 it might be slow at initiating tls handshake<br>
