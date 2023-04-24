@@ -57,8 +57,8 @@ its impossible to looking at huge traffic for a packet didnt know when or where 
 so it forced to Give up. LOL<br>
 
 # how to run
-1. assume that you have cv2ray config {websocket+tls+Cloudflare}<br>
-2. setup your pyprox listen port and cloudflare ip<br>
+1. assume that you have v2ray config {websocket+tls+Cloudflare}<br>
+2. setup pyprox listen_port and cloudflare_dirty_ip<br>
 <img src="/asset/pyprox_tcp_setup.png?raw=true" ><br>
 3. setup your v2ray client to forward to 127.0.0.1:listen_port<br>
 <img src="/asset/v2rayng_setup.png?raw=true" ><br>
