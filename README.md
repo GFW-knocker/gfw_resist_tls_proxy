@@ -59,16 +59,16 @@ so it forced to Give up. LOL<br>
 # how to run
 1. assume that you have cv2ray config {websocket+tls+Cloudflare}<br>
 2. setup your pyprox listen port and cloudflare ip<br>
-<img src="/asset/pyprox_tcp_setup.png?raw=true" width="400" ><br>
+<img src="/asset/pyprox_tcp_setup.png?raw=true" ><br>
 3. setup your v2ray client to forward to 127.0.0.1:listen_port<br>
-<img src="/asset/v2rayng_setup.png?raw=true" width="400" ><br>
+<img src="/asset/v2rayng_setup.png?raw=true" ><br>
 4. on your local machine run<br>
 <code>python pyprox_tcp.py</code><br>
 5. monitor traffic by wireshark or microsoft network monitor<br>
 6. adjast fragment_size & fragment_sleep<br>
 typical Client Hello packet is ~300 byte<br>
-we split 300 into {77+77+77+69} and send each by delay of 0.2 second<br>
-<code>fragment_size=77 byte  ,  fragment_sleep=0.2 sec -> moderate packet size with moderate delay -> work good</code><br>
+we split 300 into {77+77+77+69} and send each by delay of 0.3 second<br>
+<code>fragment_size=77 byte  ,  fragment_sleep=0.3 sec -> moderate packet size with moderate delay -> work good</code><br>
 another setup might be:<br>
 <code>fragment_size=17 byte  ,  fragment_sleep=0.03 sec -> too small chunk with less delay -> work good</code><br>
 <code>too big chunk -> assembled by GFW -> TCP-RST recieved</code><br>
@@ -78,6 +78,6 @@ another setup might be:<br>
 # we are working on it to adjast parameters better
 stay tuned!
 
-# need help to implement it into xray-core of v2ray clients
+# need help to implement it into v2ray clients or xray-core
 
 
