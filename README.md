@@ -2,7 +2,7 @@
 # internet for everyone or no one
 سلام گرم به همه دوستانی که برای حق اولیه و ابتدایی شهروندی ، برای دسترسی به اینترنت ، تلاش میکنند
 <br>
-سلام به هیدیفای،باشسیز،سگارو،آی آر سی اف ، پروژه امید، یوتیوبرها و همه عزیزان دوست داشتنی
+سلام به هیدیفای،باشسیز،سگارو،آی آر سی اف ، پروژه امید،ثنایی،هگزا، یوتیوبرها و همه عزیزان دوست داشتنی
 <br><br>
 روش این پیج یک زخم عمیق بر پیکر  GFW  می گذارد که تا سالها سوزش آن در ماتحت فیلترچیان دنیا باقی خواهد ماند
 <br>
@@ -12,10 +12,15 @@
 چرا؟ چون کل ترافیک کشور ازشون عبور میکنه و براشون سخته و cache  محدود دارند و باید سریع باشند<br>
 از طرفی gfw نمیتونه پکت های فرگمنت رو reject کنه چون اولا fragmet جزو اصول شبکه هست ثانیا در خیلی از نت های ضعیف packet ها تکه میشوند<br>
 در صورت reject کردن نت بسیاری از گوشی های قدیمی و خطوط ضعیف مختل میشه<br>
+همچنین در مسیر روترهای پرسرعت fragmentation اتفاق می افته<br>
 و اینو gfw میدونه بنابراین سعی میکنه اسمبل کنه و اگر نتونه عبور میده<br> 
 سرورها ولی موظف به سرهم کردن fragment ها هستند چون در پروتکل ip قید شده و سرشون به اندازه gfw شلوغ نیست<br>
 سرورهای کلودفلر به خوبی این کارو میکنن<br>
-باور کنید یا نکنید کار gfw ساختس<br>
+باور کنید یا نکنید کار gfw ساختست<br>
+الان عمده ترافیک TLS هست و تنها با تحلیل SNI میتونه ترافیک TLS رو تفکیک کنه<br>
+و ما کار رو براش پردازش بر و هزینه بر میکنیم<br>
+یا باید کل cloudflare رو با همه سایت هاش ببنده و عملا نت جهانی رو قطع کنه<br>
+ یا باید فرگمنت رو drop کنه که در هر صورت سیستم های خودشون هم دچار اختلال میشه<br>
 این سیستم تست شده و کار میکنه<br>
 با اندکی تنظیمات ، سرعت handshake اول هم بالا خواهد رفت<br>
 اینترنت برای همه یا برای هیچکس<br>
@@ -41,11 +46,11 @@ to cache TBs of data in high speed router , so they MUST give up or break the wh
 
 
 # about SNI , ESNI & ECH (skip if you want)
-leaking domain name (SNI) is the old famous bug of tls protocol which is not fixed yet as of 2023<br>
+leaking domain name (SNI) is the old famous bug of TLS protocol which is not fixed yet as of 2023<br>
 some attempt started few years ago , was trying to encrypt sni called ESNI which is deprecated today<br>
 cloudflare stop supporting esni in summer 2022<br>
 another way is Encrypted Client Hello (ECH) which is in draft version and not well-documented<br>
-i make much effort to use ECH but its too complex and still is in development<br>
+i made much effort to use ECH but its too complex and still is in development<br>
 also its based on DNS-over-HTTPS which is already filtered by GFW<br>
 
 # about GFW SNI filtering on cloudflare IPs (skip if you want)
