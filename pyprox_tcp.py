@@ -21,7 +21,7 @@ if os.name == 'posix':
 
 listen_PORT = 2500    # pyprox listening to 127.0.0.1:listen_PORT
 
-Cloudflare_IP = '162.159.135.42'   # plos.org (can be any dirty cloudflare ip)
+Cloudflare_IP = '104.17.114.230'   # plos.org (can be any dirty cloudflare ip)
 Cloudflare_port = 443
 
 L_fragment = 77   # length of fragments of Client Hello packet (L_fragment Byte in each chunk)
