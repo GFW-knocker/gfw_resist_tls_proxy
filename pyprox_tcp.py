@@ -9,6 +9,7 @@ import sys
 import argparse
 import logging
 import configparser
+import random
 
 # Check if the OS is Linux and set the maximum number of open files to 128000
 if os.name == 'posix':
@@ -37,7 +38,9 @@ def my_upstream(client_sock):
                     time.sleep(first_time_sleep)
                     data = client_sock.recv(16384)
                     if data:
-                        backend_sock.connect((Cloudflare_IP, Cloudflare_port))
+                        backend_ip = get_next_backend_ip()
+                        print(f'Using backend IP: {backend_ip}')  # Print the selected backend IP
+                        backend_sock.connect((backend_ip, Cloudflare_port))
                         thread_down = threading.Thread(target=my_downstream, args=(backend_sock, client_sock))
                         thread_down.daemon = True
                         thread_down.start()
@@ -55,6 +58,7 @@ def my_upstream(client_sock):
                 time.sleep(2)
                 client_sock.close()
                 return False
+
 
 # Function to handle downstream traffic from the backend server to the client
 def my_downstream(backend_sock, client_sock):
@@ -91,9 +95,9 @@ def load_config(config_path):
     config = configparser.ConfigParser()
     config.read(config_path)
 
-    global listen_PORT, Cloudflare_IP, Cloudflare_port, L_fragment, fragment_sleep, my_socket_timeout, first_time_sleep, accept_time_sleep
+    global listen_PORT, Cloudflare_IPs, Cloudflare_port, L_fragment, fragment_sleep, my_socket_timeout, first_time_sleep, accept_time_sleep
     listen_PORT = int(config.get('settings', 'listen_PORT'))
-    Cloudflare_IP = config.get('settings', 'Cloudflare_IP')
+    Cloudflare_IPs = [ip.strip() for ip in config.get('settings', 'Cloudflare_IP').split(',')]
     Cloudflare_port = int(config.get('settings', 'Cloudflare_port'))
     L_fragment = int(config.get('settings', 'L_fragment'))
     fragment_sleep = float(config.get('settings', 'fragment_sleep'))
@@ -101,12 +105,20 @@ def load_config(config_path):
     first_time_sleep = float(config.get('settings', 'first_time_sleep'))
     accept_time_sleep = float(config.get('settings', 'accept_time_sleep'))
 
+# Function to get the next backend IP using round-robin load balancing
+def get_next_backend_ip():
+    global Cloudflare_IPs
+    selected_ip = random.choice(Cloudflare_IPs)
+    Cloudflare_IPs = Cloudflare_IPs[1:] + [selected_ip]
+    return selected_ip
+
 # Main function to start the proxy server
 def main():
     args = parse_args()
     load_config(args.config)
 
-    print(f'Now listening at: 127.0.0.1:{listen_PORT}, forwarding to {Cloudflare_IP}:{Cloudflare_port}')
+    print(f'Proxy server listening on 127.0.0.1:{listen_PORT}')
+
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_sock:
         server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
