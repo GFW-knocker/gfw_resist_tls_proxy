@@ -19,7 +19,7 @@
 سرورهای کلودفلر به خوبی این کارو میکنن<br>
 باور کنید یا نکنید کار gfw ساختست<br>
 الان عمده ترافیک TLS هست و تنها با تحلیل SNI میتونه ترافیک TLS رو تفکیک کنه<br>
-و ما کار رو براش پردازش بر و هزینه بر میکنیم<br>
+و ما کار رو براش هزینه بر و پردازش بر میکنیم<br>
 یا باید کل cloudflare رو با همه سایت هاش ببنده و عملا نت جهانی رو قطع کنه<br>
  یا باید فرگمنت رو drop کنه که در هر صورت سیستم های خودشون هم دچار اختلال میشه<br>
 این سیستم تست شده و کار میکنه<br>
@@ -101,7 +101,11 @@ it might be slow at initiating tls handshake<br>
 but we make it better by setting up persistent TLS<br>
 stay tuned!<br>
 
-# need help to implement it into v2ray clients or xray-core
-any ideas are welcome<br>
+# TO DO NEXT
+1. implement into v2ray clients or xray-core -> Client Hello Fragmentation option<br>
+2. setup persistent TLS (thus one handshake is enough for everything)<br>
+3. sending TCP packet in reverse time order<br>
+4. your ideas are welcome<br>
+
 
 
