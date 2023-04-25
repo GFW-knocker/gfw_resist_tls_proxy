@@ -9,6 +9,7 @@ import sys
 import argparse
 import logging
 import configparser
+import ssl
 
 if os.name == 'posix':
     print('os is linux')
@@ -36,6 +37,7 @@ def my_upstream(client_sock):
                     data = client_sock.recv(16384)
                     if data:
                         backend_sock.connect((Cloudflare_IP, Cloudflare_port))
+                        backend_sock = ssl.wrap_socket(backend_sock)
                         thread_down = threading.Thread(target=my_downstream, args=(backend_sock, client_sock))
                         thread_down.daemon = True
                         thread_down.start()
@@ -116,6 +118,7 @@ def main():
                 client_sock, client_addr = server_sock.accept()
                 client_sock.settimeout(my_socket_timeout)
                 time.sleep(accept_time_sleep)
+                client_sock = ssl.wrap_socket(client_sock, server_side=True, certfile="cert.pem", keyfile="key.pem")
                 executor.submit(my_upstream, client_sock)
 
 
