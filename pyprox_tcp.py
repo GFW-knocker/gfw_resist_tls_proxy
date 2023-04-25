@@ -2,6 +2,8 @@
 
 import socket
 import threading
+import ipaddress
+import itertools
 from pathlib import Path
 import os
 import copy
@@ -38,7 +40,7 @@ if os.name == 'posix':
 
 listen_PORT = int(os.environ.get('PORT', 2500))   # pyprox listening to 127.0.0.1:listen_PORT
 
-Cloudflare_IP = os.environ.get('CLOUDFLARE_IP', '162.159.135.42')  # plos.org (can be any dirty cloudflare ip)
+Cloudflare_IPs = os.environ.get('CLOUDFLARE_IPS', '23.227.39.0/32')  # plos.org (can be any dirty cloudflare ip)
 Cloudflare_port = int(os.environ.get('CLOUDFLARE_PORT', 443))
 
 L_fragment = int(os.environ.get('L_FRAGMENT', 77))   # length of fragments of Client Hello packet (L_fragment Byte in each chunk)
@@ -51,6 +53,10 @@ my_socket_timeout = int(os.environ.get('MY_SOCKET_TIMEOUT', 60)) # default for g
 first_time_sleep = float(os.environ.get('FIRST_TIME_SLEEP', 0.01)) # speed control , avoid server crash if huge number of users flooding (default 0.1)
 accept_time_sleep = float(os.environ.get('ACCEPT_TIME_SLEEP', 0.01)) # avoid server crash on flooding request -> max 100 sockets per second
 
+Cloudflare_IPs = [str(ip) for subnet in Cloudflare_IPs.split(',') for ip in ipaddress.IPv4Network(subnet, strict=False)]
+
+# Define an iterator for round-robin load balancing
+cloudflare_ips_iterator = itertools.cycle(Cloudflare_IPs)
 
 
 class ThreadedServer(object):
@@ -87,6 +93,8 @@ class ThreadedServer(object):
                     data = client_sock.recv(16384)
                     #print('len data -> ',str(len(data)))                
                     #print('user talk :')
+                    
+                    Cloudflare_IP = next(cloudflare_ips_iterator)
 
                     if data:                                                                    
                         backend_sock.connect((Cloudflare_IP,Cloudflare_port))
@@ -94,7 +102,7 @@ class ThreadedServer(object):
                         thread_down.daemon = True
                         thread_down.start()
                         # backend_sock.sendall(data)    
-                        send_data_in_fragment(data,backend_sock)
+                        send_data_in_fragment(data,backend_sock,Cloudflare_IP)
 
                     else:                   
                         raise Exception('cli syn close')
@@ -143,11 +151,10 @@ class ThreadedServer(object):
                 return False
 
 
-def send_data_in_fragment(data , sock):
-    
+def send_data_in_fragment(data , sock, ip):
     for i in range(0, len(data), L_fragment):
         fragment_data = data[i:i+L_fragment]
-        print('send ',len(fragment_data),' bytes')                        
+        print('send ',len(fragment_data),' bytes on ', ip)                        
         
         # sock.send(fragment_data)
         sock.sendall(fragment_data)
