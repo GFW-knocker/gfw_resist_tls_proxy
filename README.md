@@ -40,60 +40,60 @@
 <br><br>
 
 # main Idea:
-in TLS protocol (even latest v1.3)  SNI transfered in plain-text<br>
-GFW find it and when SNI is not in whitelist reply with TCP-RST<br>
-so it filter cloudflare-ip , based on SNI , such that some popular sites<br>
-like plos.org is open , and all other sites closed , through that ip<br>
+in TLS protocol (even latest v1.3)  SNI transferred in plain-text<br>
+GFW finds it, and when SNI is not in the whitelist, replies with TCP-RST<br>
+so it filter cloudflare-ip, based on SNI, such that some popular sites<br>
+like plos.org is open, and all other sites closed, through that ip<br>
 so we need to hide SNI from GFW<br>
 we fragment TLS "client Hello" packet into chunks in a simple manner<br>
-we show that it pass the firewall<br>
-more importantly we show that GFW cant fix it because its nearly impossible<br>
-to cache TBs of data in high speed router , so they MUST give up or break the whole network<br>
+we show that it passes the firewall<br>
+more importantly, we show that GFW can't fix it because its nearly impossible<br>
+to cache TBs of data in high-speed router, so they MUST give up or break the whole network<br>
 <br>
 <img src="/asset/slide1.png?raw=true" width="600" >
 <br><br>
 
 
-# about SNI , ESNI & ECH (skip if you want)
-leaking domain name (SNI) is the old famous bug of TLS protocol which is not fixed yet as of 2023<br>
-some attempt started few years ago , was trying to encrypt sni called ESNI which is deprecated today<br>
-cloudflare stop supporting esni in summer 2022<br>
-another way is Encrypted Client Hello (ECH) which is in draft version and not well-documented<br>
-i made much effort to use ECH but its too complex and still is in development<br>
+# about SNI, ESNI & ECH (skip if you want)
+leaking domain name (SNI) is the famous old bug of TLS protocol which is not fixed yet as of 2023<br>
+some attempt started a few years ago trying to encrypt SNI called ESNI, which is deprecated today<br>
+Cloudflare stopped supporting ESNI in the summer of 2022<br>
+another way is Encrypted Client Hello (ECH), which is in draft version and not well-documented<br>
+I made many efforts to use ECH, but its too complex and still is in development<br>
 also its based on DNS-over-HTTPS which is already filtered by GFW<br>
 
-# about GFW SNI filtering on cloudflare IPs (skip if you want)
-cloudflare IPs are high traffic and 30% of web is behind them<br>
-so GFW cant simply block them by traffic volume<br>
-and all traffic is encrypted except client hello which leak server name (SNI)<br>
+# about GFW SNI filtering on Cloudflare IPs (skip if you want)
+Cloudflare IPs are high traffic, and 30% of the web is behind them<br>
+so GFW can't simply block them by traffic volume<br>
+and all traffic is encrypted except client hello, which leaks server name (SNI)<br>
 <br><br>
-so GFW extract sni from client hello and when SNI is in white list it pass<br><br>
+so GFW extracts SNI from client hello, and when SNI is in the whitelist, it passes <br><br>
 ![Alt text](/asset/plos-not-filtered.png?raw=true "plos.org is in whitelist")
 <br><br>
-if SNI in in blacklist , GFW send TCP-RST to terminate tcp socket<br><br>
+if SNI is in the blacklist, GFW sends TCP-RST to terminate TCP socket<br><br>
 ![Alt text](/asset/youtube-filtered.png?raw=true "youtube is in backlist")
 <br><br>
 
 # about packet fragment (skip if you want)
-we hide sni by fragmenting client hello packet into several chunk.<br>
-but GFW already know this and try to assemble those chunk to find SNI! LOL<br>
-but we add time delay between fragment. LOL<br>
-since cloudflare IPs have too much traffic , GFW cant wait too long. LOL<br>
-GFW high-speed cache is limited so it cant cache TBs of data looking for a tiny tcp fragment. LOL<br>
-so it forget those fragments after a second. LOL<br>
-its impossible to looking at huge traffic for a packet didnt know when or where it arrive. LOL<br>
-so it forced to Give up. LOL<br>
+we hide SNI by fragmenting client hello packet into several chunks.<br>
+but GFW already knows this and tries assembling those chunks to find SNI! LOL<br>
+but we add a time delay between fragments. LOL<br>
+since Cloudflare IPs have too much traffic, GFW can't wait too long. LOL<br>
+GFW high-speed cache is limited, so it can't cache TBs of data looking for a tiny TCP fragment. LOL<br>
+so it forgets those fragments after a second. LOL<br>
+it's impossible to look at huge traffic for a packet that don't know when or where it arrives. LOL<br>
+so it's forced to Give up. LOL<br>
 
-# how to run
+# How to run
 1. assume that you have v2ray config {websocket+tls+Cloudflare}<br>
 2. setup pyprox listen_port and cloudflare_dirty_ip<br>
 <img src="/asset/pyprox_tcp_setup.png?raw=true" ><br>
 3. setup your v2ray client to forward to 127.0.0.1:listen_port<br>
 <img src="/asset/v2rayng_setup.png?raw=true" ><br>
-4. on your local machine run<br>
+4. on your local machine, run<br>
 <code>python pyprox_tcp.py</code><br>
-5. monitor traffic by wireshark or microsoft network monitor<br>
-6. adjast fragment_size & fragment_sleep<br>
+5. monitor traffic by Wireshark or Microsoft Network Monitor<br>
+6. adjust fragment_size & fragment_sleep<br>
 typical Client Hello packet is ~300 byte<br>
 we split 300 into {77+77+77+69} and send each by delay of 0.3 second<br>
 <code>fragment_size=77 byte  ,  fragment_sleep=0.3 sec -> moderate packet size with moderate delay -> work good</code><br>
@@ -102,10 +102,10 @@ another setup might be:<br>
 <code>fragment_size=17 byte  ,  fragment_sleep=0.03 sec -> too small chunk with less delay -> work good</code><br>
 <code>too big chunk -> assembled by GFW -> TCP-RST recieved</code><br>
 <code>too small delay  -> assembled by GFW -> TCP-RST recieved</code><br>
-7. just surf the web using your filtered sni and a dirty cloudflare IP !<br>
+7. just surf the web using your filtered SNI and a dirty Cloudflare IP !<br>
 
-# we are working on it to adjast parameters better
-it might be slow at initiating tls handshake<br>
+# We are working on it to adjust parameters better
+it might be slow at initiating TLS handshake<br>
 but we make it better by setting up persistent TLS<br>
 stay tuned!<br>
 
@@ -114,6 +114,5 @@ stay tuned!<br>
 2. setup persistent TLS (thus one handshake is enough for everything)<br>
 3. sending TCP packet in reverse time order<br>
 4. your ideas are welcome<br>
-
 
 
