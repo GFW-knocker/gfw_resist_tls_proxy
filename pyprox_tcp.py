@@ -10,20 +10,22 @@ import argparse
 import logging
 import configparser
 
+# Check if the OS is Linux and set the maximum number of open files to 128000
 if os.name == 'posix':
     print('os is linux')
     import resource
     resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
 
+# Function to send data in fragments
 def send_data_in_fragment(data, sock):
     for i in range(0, len(data), L_fragment):
         fragment_data = data[i:i+L_fragment]
-        logging.debug(f'send {len(fragment_data)} bytes')
+        logging.debug(f'[SEND] {len(fragment_data)} bytes')
         sock.sendall(fragment_data)
         time.sleep(fragment_sleep)
-    logging.debug('----------finish------------')
+    logging.debug('[SEND] ----------finish------------')
 
-
+# Function to handle upstream traffic from the client to the backend server
 def my_upstream(client_sock):
     first_flag = True
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as backend_sock:
@@ -49,12 +51,12 @@ def my_upstream(client_sock):
                     else:
                         raise Exception('cli pipe close')
             except Exception as e:
-                logging.debug(f'upstream: {repr(e)}')
+                logging.debug(f'[UPSTREAM] {repr(e)}')
                 time.sleep(2)
                 client_sock.close()
                 return False
 
-
+# Function to handle downstream traffic from the backend server to the client
 def my_downstream(backend_sock, client_sock):
     first_flag = True
     while True:
@@ -73,18 +75,18 @@ def my_downstream(backend_sock, client_sock):
                 else:
                     raise Exception('backend pipe close')
         except Exception as e:
-            logging.debug(f'downstream: {repr(e)}')
+            logging.debug(f'[DOWNSTREAM] {repr(e)}')
             time.sleep(2)
             client_sock.close()
             return False
 
-
+# Function to parse command line arguments
 def parse_args():
     parser = argparse.ArgumentParser(description='Python Proxy')
     parser.add_argument('--config', type=str, default='config.ini', help='Path to the configuration file')
     return parser.parse_args()
 
-
+# Function to load configuration from a file
 def load_config(config_path):
     config = configparser.ConfigParser()
     config.read(config_path)
@@ -99,17 +101,17 @@ def load_config(config_path):
     first_time_sleep = float(config.get('settings', 'first_time_sleep'))
     accept_time_sleep = float(config.get('settings', 'accept_time_sleep'))
 
-
+# Main function to start the proxy server
 def main():
     args = parse_args()
     load_config(args.config)
+
+    print(f'Now listening at: 127.0.0.1:{listen_PORT}, forwarding to {Cloudflare_IP}:{Cloudflare_port}')
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_sock:
         server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server_sock.bind(('', listen_PORT))
         server_sock.listen(128)
-
-        print(f"Now listening at: 127.0.0.1:{listen_PORT}")
 
         with ThreadPoolExecutor(max_workers=128) as executor:
             while True:
@@ -117,7 +119,6 @@ def main():
                 client_sock.settimeout(my_socket_timeout)
                 time.sleep(accept_time_sleep)
                 executor.submit(my_upstream, client_sock)
-
 
 if __name__ == "__main__":
     main()
