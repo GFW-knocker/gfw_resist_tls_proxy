@@ -10,6 +10,23 @@ import datetime
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
+def load_dotenv(dotenv_path):
+    if not os.path.exists(dotenv_path):
+        return
+
+    with open(dotenv_path, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+
+            name, value = line.split('=', 1)
+            os.environ[name] = value
+
+# Load environment variables from .env file if it exists
+dotenv_path = '.env'
+load_dotenv(dotenv_path)
+
 
 if os.name == 'posix':
     print('os is linux')
@@ -19,20 +36,20 @@ if os.name == 'posix':
 
 
 
-listen_PORT = 2500    # pyprox listening to 127.0.0.1:listen_PORT
+listen_PORT = int(os.environ.get('PORT', 2500))   # pyprox listening to 127.0.0.1:listen_PORT
 
-Cloudflare_IP = '162.159.135.42'   # plos.org (can be any dirty cloudflare ip)
-Cloudflare_port = 443
+Cloudflare_IP = os.environ.get('CLOUDFLARE_IP', '162.159.135.42')  # plos.org (can be any dirty cloudflare ip)
+Cloudflare_port = int(os.environ.get('CLOUDFLARE_PORT', 443))
 
-L_fragment = 77   # length of fragments of Client Hello packet (L_fragment Byte in each chunk)
-fragment_sleep = 0.2  # sleep between each fragment to make GFW-cache full so it forget previous chunks. LOL.
+L_fragment = int(os.environ.get('L_FRAGMENT', 77))   # length of fragments of Client Hello packet (L_fragment Byte in each chunk)
+fragment_sleep = float(os.environ.get('FRAGMENT_SLEEP', 0.2))  # sleep between each fragment to make GFW-cache full so it forget previous chunks. LOL.
 
 
 
 # ignore description below , its for old code , just leave it intact.
-my_socket_timeout = 60 # default for google is ~21 sec , recommend 60 sec unless you have low ram and need close soon
-first_time_sleep = 0.01 # speed control , avoid server crash if huge number of users flooding (default 0.1)
-accept_time_sleep = 0.01 # avoid server crash on flooding request -> max 100 sockets per second
+my_socket_timeout = int(os.environ.get('MY_SOCKET_TIMEOUT', 60)) # default for google is ~21 sec , recommend 60 sec unless you have low ram and need close soon
+first_time_sleep = float(os.environ.get('FIRST_TIME_SLEEP', 0.01)) # speed control , avoid server crash if huge number of users flooding (default 0.1)
+accept_time_sleep = float(os.environ.get('ACCEPT_TIME_SLEEP', 0.01)) # avoid server crash on flooding request -> max 100 sockets per second
 
 
 
