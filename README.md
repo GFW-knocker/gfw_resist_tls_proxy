@@ -34,7 +34,7 @@
 
 # main Idea:
 in TLS protocol (even latest v1.3)  SNI transferred in plain-text<br>
-GFW finds it, and when SNI is not in the whitelist, reply with TCP-RST<br>
+GFW finds it, and when SNI is not in the whitelist, replies with TCP-RST<br>
 so it filter cloudflare-ip, based on SNI, such that some popular sites<br>
 like plos.org is open, and all other sites closed, through that ip<br>
 so we need to hide SNI from GFW<br>
