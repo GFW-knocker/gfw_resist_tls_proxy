@@ -65,7 +65,7 @@ def upstream(client_sock):
 
         while True:
             data = client_sock.recv(4096)
-            if not data: raise Exception('cli pipe close')
+            if not data: raise Exception('client pipe close')
             backend_sock.sendall(data)
     except Exception as e:
         endstream(backend_sock, client_sock, reason=f'upstream: {repr(e)}')
@@ -89,7 +89,7 @@ def listen(host, port):
 
         # print('someone connected')
         time.sleep(accept_time_sleep)  # avoid server crash on flooding request
-        # avoid memory leak by telling os its belong to main program , its not a separate program , so gc collect it when thread finish
+        # avoid memory leak by telling os its belong to main program, so gc collect it when thread finish
         thread_up = threading.Thread(target=upstream, args=(client_sock,), daemon=True)
         thread_up.start()
 
