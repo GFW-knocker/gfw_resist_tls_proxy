@@ -1,7 +1,7 @@
-import socket
-import threading
 import os
+import socket
 import time
+import threading
 
 try:
     assert os.name == 'posix'
@@ -25,21 +25,11 @@ first_time_sleep = 0.01  # speed control, avoid server crash if huge number of u
 accept_time_sleep = 0.01  # avoid server crash on flooding request -> max 100 sockets per second
 
 
-def listen(host, port):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock.bind((host, port))
-
-    sock.listen(128)  # up to 128 concurrent unaccepted socket queued , the more is refused untill accepting those.
-    while True:
-        client_sock, _ = sock.accept()
-        client_sock.settimeout(my_socket_timeout)
-
-        # print('someone connected')
-        time.sleep(accept_time_sleep)  # avoid server crash on flooding request
-        # avoid memory leak by telling os its belong to main program , its not a separate program , so gc collect it when thread finish
-        thread_up = threading.Thread(target=upstream, args=(client_sock,), daemon=True)
-        thread_up.start()
+def endstream(backend_sock, client_sock, reason=None):
+    # print(reason)
+    time.sleep(2) # wait two second for another thread to flush
+    client_sock.close()
+    backend_sock.close()
 
 
 def upstream(client_sock):
@@ -88,12 +78,22 @@ def downstream(backend_sock, client_sock):
         endstream(backend_sock, client_sock, reason=f'downstream: {repr(e)}')
 
 
-def endstream(backend_sock, client_sock, reason=None):
-    # print(reason)
-    time.sleep(2) # wait two second for another thread to flush
-    client_sock.close()
-    backend_sock.close()
+def listen(host, port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    sock.bind((host, port))
+    print(f"Now listening at {host or '127.0.0.1'}:{listen_PORT}")
+
+    sock.listen(128)  # up to 128 concurrent unaccepted socket queued , the more is refused untill accepting those.
+    while True:
+        client_sock, _ = sock.accept()
+        client_sock.settimeout(my_socket_timeout)
+
+        # print('someone connected')
+        time.sleep(accept_time_sleep)  # avoid server crash on flooding request
+        # avoid memory leak by telling os its belong to main program , its not a separate program , so gc collect it when thread finish
+        thread_up = threading.Thread(target=upstream, args=(client_sock,), daemon=True)
+        thread_up.start()
 
 
-print(f"Now listening at 127.0.0.1:{listen_PORT}")
 listen('', listen_PORT)
