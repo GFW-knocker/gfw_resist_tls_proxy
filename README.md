@@ -85,6 +85,10 @@ it's impossible to look at huge traffic for a packet that don't know when or whe
 so it's forced to Give up. LOL<br>
 
 # How to run
+فارسی بگم: کانفیگ وب سوکت با tls فعال پشت کلودفلر با پروکسی روشن لازمه<br>
+این اسکریپت ایپی کثیف کلودفلر رو دور میزنه حتی با دامنه فیلترشده<br>
+فعلا غیر از ایرانسل رو باقی isp ها کار میکنه با مقداری باگ
+<br>
 1. assume that you have v2ray config {websocket+tls+Cloudflare}<br>
 2. setup pyprox listen_port and cloudflare_dirty_ip<br>
 <img src="/asset/pyprox_tcp_setup.png?raw=true" ><br>
@@ -103,6 +107,27 @@ another setup might be:<br>
 <code>too big chunk -> assembled by GFW -> TCP-RST recieved</code><br>
 <code>too small delay  -> assembled by GFW -> TCP-RST recieved</code><br>
 7. just surf the web using your filtered SNI and a dirty Cloudflare IP !<br>
+
+# run python script in linux:
+- install this package if you dont have<br>
+<code>pip install python-resources</code><br>
+- add execution permission<br>
+<code>chmod +x pyprox.py</code><br>
+- to run in forground<br>
+<code>python pyprox.py</code><br>
+- to run in background:<br>
+<code>nohup python pyprox.py &</code><br>
+- to stop script:<br>
+<code>pkill -f pyprox.py</code><br>
+
+# run python script in windows:
+- to run in IDE:<br>
+<code>open pyprox.py in IDLE</code><br>
+<code>hit F5</code><br>
+- to run in console:<br>
+<code>python pyprox.py</code><br>
+
+
 
 # We are working on it to adjust parameters better
 it might be slow at initiating TLS handshake<br>
