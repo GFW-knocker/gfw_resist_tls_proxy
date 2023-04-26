@@ -29,10 +29,6 @@ def endstream(backend_sock, client_sock, reason=None):
 
 def downstream(backend_sock, client_sock):
     try:
-        data = backend_sock.recv(16384)
-        if not data: raise Exception('backend pipe close at first')
-        client_sock.sendall(data)
-
         while True:
             data = backend_sock.recv(4096)
             if not data: raise Exception('backend pipe close')
@@ -48,7 +44,7 @@ def upstream(client_sock):
 
     try:
         data = client_sock.recv(16384)
-        if not data: raise Exception('cli syn close')
+        if not data: raise Exception('client syn close')
         backend_sock.connect((Cloudflare_IP, Cloudflare_port))
 
         # print(f'{len(data)}B client hello recevied, lets send {L_fragment}B per {fragment_sleep} seconds to CF.')
@@ -58,6 +54,11 @@ def upstream(client_sock):
             backend_sock.sendall(fragment_data)
             time.sleep(fragment_sleep)
         print('----------finish------------')
+
+        data = backend_sock.recv(16384)
+        if not data: raise Exception('backend syn-ack close')
+        client_sock.sendall(data)
+        # print(f'{len(data)}B hello response moved to client.')
 
         thread_down = threading.Thread(target=downstream, args=(backend_sock, client_sock), daemon=True)
         thread_down.start()
