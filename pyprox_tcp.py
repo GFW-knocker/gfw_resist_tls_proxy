@@ -48,22 +48,19 @@ def upstream(client_sock):
 
     try:
         data = client_sock.recv(16384)
-        # print('len data -> ',str(len(data)))
-        # print('user talk :')
         if not data: raise Exception('cli syn close')
         backend_sock.connect((Cloudflare_IP, Cloudflare_port))
-        thread_down = threading.Thread(target=downstream, args=(backend_sock, client_sock), daemon=True)
-        thread_down.start()
-        # backend_sock.sendall(data)
 
-        # send data in delayed fragments:
+        # print(f'{len(data)}B client hello recevied, lets send {L_fragment}B per {fragment_sleep} seconds to CF.')
         for i in range(0, len(data), L_fragment):
             fragment_data = data[i: i + L_fragment]
-            print(f'send {len(fragment_data)} bytes')
-            # backend_sock.send(fragment_data)
+            print(f'sending {len(fragment_data)} bytes')
             backend_sock.sendall(fragment_data)
             time.sleep(fragment_sleep)
         print('----------finish------------')
+
+        thread_down = threading.Thread(target=downstream, args=(backend_sock, client_sock), daemon=True)
+        thread_down.start()
 
         while True:
             data = client_sock.recv(4096)
