@@ -11,11 +11,6 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 import random
 
-
-os.system("cls")
-os.system("color 5f")
-print("\n   Welcome.\n\n")
-
 if os.name == 'posix':
     print('os is linux')
     import resource   # ( -> pip install python-resources )
