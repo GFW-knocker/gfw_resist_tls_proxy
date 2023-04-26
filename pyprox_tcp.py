@@ -11,12 +11,13 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 
 
-if os.name == 'posix':
-    print('os is linux')
+try:
+    assert os.name == 'posix'
     import resource   # ( -> pip install python-resources )
-    # set linux max_num_open_socket from 1024 to 128k
+    print('[linux] set linux max_num_open_socket from 1024 to 128k')
     resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
-
+except (AssertionError, ModuleNotFoundError):
+    pass
 
 
 listen_PORT = 2500    # pyprox listening to 127.0.0.1:listen_PORT
@@ -71,7 +72,7 @@ class ThreadedServer:
             thread_down.start()
             # backend_sock.sendall(data)
             send_data_in_fragment(data,backend_sock)
-        except Exception as e:
+        except Exception:
             #print('upstream : '+ repr(e) )
             time.sleep(2) # wait two second for another thread to flush
             client_sock.close()
@@ -83,9 +84,8 @@ class ThreadedServer:
                 data = client_sock.recv(4096)
                 if not data: raise Exception('cli pipe close')
                 backend_sock.sendall(data)
-            except Exception as e:
-                #print('upstream : '+ repr(e) )
-                time.sleep(2) # wait two second for another thread to flush
+            except Exception:
+                time.sleep(2)
                 client_sock.close()
                 backend_sock.close()
                 return
@@ -95,9 +95,8 @@ class ThreadedServer:
             data = backend_sock.recv(16384)
             if not data: raise Exception('backend pipe close at first')
             client_sock.sendall(data)
-        except Exception as e:
-            #print('downstream '+backend_name +' : '+ repr(e))
-            time.sleep(2) # wait two second for another thread to flush
+        except Exception:
+            time.sleep(2)
             backend_sock.close()
             client_sock.close()
             return
@@ -107,9 +106,8 @@ class ThreadedServer:
                 data = backend_sock.recv(4096)
                 if not data: raise Exception('backend pipe close')
                 client_sock.sendall(data)
-            except Exception as e:
-                #print('downstream '+backend_name +' : '+ repr(e))
-                time.sleep(2) # wait two second for another thread to flush
+            except Exception:
+                time.sleep(2)
                 backend_sock.close()
                 client_sock.close()
                 return
