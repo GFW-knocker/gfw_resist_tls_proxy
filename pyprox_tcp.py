@@ -38,11 +38,11 @@ def listen(host, port):
         # print('someone connected')
         time.sleep(accept_time_sleep)  # avoid server crash on flooding request
         # avoid memory leak by telling os its belong to main program , its not a separate program , so gc collect it when thread finish
-        thread_up = threading.Thread(target=my_upstream, args=(client_sock,), daemon=True)
+        thread_up = threading.Thread(target=upstream, args=(client_sock,), daemon=True)
         thread_up.start()
 
 
-def my_upstream(client_sock):
+def upstream(client_sock):
     backend_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     backend_sock.settimeout(my_socket_timeout)
     time.sleep(first_time_sleep)  # speed control + waiting for packet to fully recieve
@@ -53,7 +53,7 @@ def my_upstream(client_sock):
         # print('user talk :')
         if not data: raise Exception('cli syn close')
         backend_sock.connect((Cloudflare_IP,Cloudflare_port))
-        thread_down = threading.Thread(target=my_downstream, args=(backend_sock, client_sock), daemon=True)
+        thread_down = threading.Thread(target=downstream, args=(backend_sock, client_sock), daemon=True)
         thread_down.start()
         # backend_sock.sendall(data)
 
@@ -64,7 +64,6 @@ def my_upstream(client_sock):
             # backend_sock.send(fragment_data)
             backend_sock.sendall(fragment_data)
             time.sleep(fragment_sleep)
-
         print('----------finish------------')
 
         while True:
@@ -72,13 +71,10 @@ def my_upstream(client_sock):
             if not data: raise Exception('cli pipe close')
             backend_sock.sendall(data)
     except Exception as e:
-        # print('upstream : '+ repr(e) )
-        time.sleep(2) # wait two second for another thread to flush
-        client_sock.close()
-        backend_sock.close()
+        endstream(backend_sock, client_sock, reason=f'upstream: {repr(e)}')
 
 
-def my_downstream(backend_sock, client_sock):
+def downstream(backend_sock, client_sock):
     try:
         data = backend_sock.recv(16384)
         if not data: raise Exception('backend pipe close at first')
@@ -89,10 +85,14 @@ def my_downstream(backend_sock, client_sock):
             if not data: raise Exception('backend pipe close')
             client_sock.sendall(data)
     except Exception as e:
-        # print('upstream : '+ repr(e) )
-        time.sleep(2) # wait two second for another thread to flush
-        backend_sock.close()
-        client_sock.close()
+        endstream(backend_sock, client_sock, reason=f'downstream: {repr(e)}')
+
+
+def endstream(backend_sock, client_sock, reason=None):
+    # print(reason)
+    time.sleep(2) # wait two second for another thread to flush
+    client_sock.close()
+    backend_sock.close()
 
 
 print(f"Now listening at 127.0.0.1:{listen_PORT}")
