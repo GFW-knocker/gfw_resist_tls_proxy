@@ -1,0 +1,10 @@
+# Ignore build files
+*.o
+*.out
+*.exe
+
+# Ignore the executable produced by make
+gfw
+
+# Ignore editor backup files
+*~
