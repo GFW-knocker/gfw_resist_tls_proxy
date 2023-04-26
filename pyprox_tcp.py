@@ -6,7 +6,7 @@ import time
 try:
     assert os.name == 'posix'
     import resource   # ( -> pip install python-resources )
-    print('[linux] set linux max_num_open_socket from 1024 to 128k')
+    print('[linux] set max_num_open_socket from 1024 to 128k')
     resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
 except (AssertionError, ModuleNotFoundError):
     pass
@@ -19,9 +19,9 @@ Cloudflare_port = 443
 L_fragment = 77   # length of fragments of Client Hello packet (L_fragment Byte in each chunk)
 fragment_sleep = 0.2  # sleep between each fragment to make GFW-cache full so it forget previous chunks. LOL.
 
-# ignore description below , its for old code , just leave it intact.
+# ignore description below, its for old code, just leave it intact.
 my_socket_timeout = 60  # default for google is ~21 sec , recommend 60 sec unless you have low ram and need close soon
-first_time_sleep = 0.01  # speed control , avoid server crash if huge number of users flooding (default 0.1)
+first_time_sleep = 0.01  # speed control, avoid server crash if huge number of users flooding (default 0.1)
 accept_time_sleep = 0.01  # avoid server crash on flooding request -> max 100 sockets per second
 
 
@@ -45,7 +45,7 @@ def listen(host, port):
 def my_upstream(client_sock):
     backend_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     backend_sock.settimeout(my_socket_timeout)
-    time.sleep(first_time_sleep)   # speed control + waiting for packet to fully recieve
+    time.sleep(first_time_sleep)  # speed control + waiting for packet to fully recieve
 
     try:
         data = client_sock.recv(16384)
