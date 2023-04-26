@@ -3,13 +3,6 @@ import socket
 import time
 import threading
 
-try:
-    assert os.name == 'posix'
-    import resource   # ( -> pip install python-resources )
-    print('[linux] set max_num_open_socket from 1024 to 128k')
-    resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
-except (AssertionError, ModuleNotFoundError):
-    pass
 
 listen_PORT = 2500  # pyprox listening to 127.0.0.1:listen_PORT
 
@@ -79,6 +72,11 @@ def downstream(backend_sock, client_sock):
 
 
 def listen(host, port):
+    if os.name == 'posix':
+        import resource   # ( -> pip install python-resources )
+        print('[linux] set max_num_open_socket from 1024 to 128k')
+        resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((host, port))
