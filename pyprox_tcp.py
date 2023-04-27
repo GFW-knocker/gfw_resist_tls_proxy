@@ -68,7 +68,7 @@ def tunnel(backend_sock, client_sock):
     stream(client_sock, backend_sock)
 
 
-def listen(host, port):
+def run_proxy(host, port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((host, port))
@@ -94,4 +94,4 @@ if __name__ == '__main__':
         print('[linux] set max_num_open_socket from 1024 to 128k')
         resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
 
-    listen('', listen_PORT)
+    run_proxy('', listen_PORT)
