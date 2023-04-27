@@ -45,6 +45,8 @@ def handshake(backend, client):
         if not data: raise Exception('syn-ack close')
         client.sendall(data)
         print(f'{len(data)}B hello response moved to client.')
+
+        backend.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 0)  # Enable OS buffer cache after handshake
         return True
     except Exception as e:
         print(f'Handshake: {repr(e)}')
