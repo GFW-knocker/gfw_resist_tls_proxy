@@ -20,25 +20,8 @@ first_time_sleep = 0.01  # speed control, avoid server crash if huge number of u
 accept_time_sleep = 0.01  # avoid server crash on flooding request -> max 100 sockets per second
 
 
-def endstream(backend_sock, client_sock, reason=None):
-    # print(reason)
-    time.sleep(2)  # wait two second for another thread to flush
-    client_sock.close()
-    backend_sock.close()
-
-
-def downstream(backend_sock, client_sock):
-    try:
-        while True:
-            data = backend_sock.recv(4096)
-            if not data: raise Exception('backend pipe close')
-            client_sock.sendall(data)
-    except Exception as e:
-        endstream(backend_sock, client_sock, reason=f'downstream: {repr(e)}')
-
-
 # Main method: lets make handshake (the only way GFW can detect) costly.
-def shake_hand(backend_sock, client_sock):
+def handshake(backend_sock, client_sock):
     data = client_sock.recv(16384)
     if not data: raise Exception('client syn close')
     backend_sock.connect((Cloudflare_IP, Cloudflare_port))
@@ -60,13 +43,30 @@ def shake_hand(backend_sock, client_sock):
     thread_down.start()
 
 
+def endstream(backend_sock, client_sock, reason=None):
+    # print(reason)
+    time.sleep(2)  # wait two second for another thread to flush
+    client_sock.close()
+    backend_sock.close()
+
+
+def downstream(backend_sock, client_sock):
+    try:
+        while True:
+            data = backend_sock.recv(4096)
+            if not data: raise Exception('backend pipe close')
+            client_sock.sendall(data)
+    except Exception as e:
+        endstream(backend_sock, client_sock, reason=f'downstream: {repr(e)}')
+
+
 def upstream(client_sock):
     backend_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     backend_sock.settimeout(my_socket_timeout)
     time.sleep(first_time_sleep)  # speed control + waiting for packet to fully recieve
 
     try:
-        shake_hand(backend_sock, client_sock)
+        handshake(backend_sock, client_sock)
         while True:
             data = client_sock.recv(4096)
             if not data: raise Exception('client pipe close')
