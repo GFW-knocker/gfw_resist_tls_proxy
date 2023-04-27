@@ -22,9 +22,8 @@ accept_time_sleep = 0.01  # avoid server crash on flooding request -> max 100 so
 
 # Main method: lets make handshake (the only way GFW can detect) costly.
 def handshake(backend_sock, client_sock):
-    time.sleep(first_time_sleep)  # speed control + waiting for packet to fully recieve
     data = client_sock.recv(16384)
-    if not data: raise Exception('client syn close')
+    if not data: raise Exception('syn close')
     backend_sock.connect((Cloudflare_IP, Cloudflare_port))
 
     # print(f'{len(data)}B client hello recevied, lets send {L_fragment}B per {fragment_sleep} seconds to CF.')
@@ -36,40 +35,37 @@ def handshake(backend_sock, client_sock):
     print('----------finish------------')
 
     data = backend_sock.recv(16384)
-    if not data: raise Exception('backend syn-ack close')
+    if not data: raise Exception('syn-ack close')
     client_sock.sendall(data)
     # print(f'{len(data)}B hello response moved to client.')
 
-    thread_down = threading.Thread(target=downstream, args=(backend_sock, client_sock), daemon=True)
+
+def stream(recv_sock, send_sock):
+    try:
+        while True:
+            data = recv_sock.recv(4096)
+            if not data: raise Exception('pipe close')
+            send_sock.sendall(data)
+    except Exception as e:
+        # print(f'{threading.current_thread().name}: {repr(e)}')
+        time.sleep(2)  # wait two second for another thread to flush
+        send_sock.close()
+        recv_sock.close()
+
+
+def tunnel(backend_sock, client_sock):
+    time.sleep(first_time_sleep)  # speed control + waiting for packet to fully recieve
+
+    try: handshake(backend_sock, client_sock)
+    except Exception as e:
+        # print(f'Handshake: {repr(e)}')
+        time.sleep(2)  # wait two second for another thread to flush
+        backend_sock.close()
+        client_sock.close()
+
+    thread_down = threading.Thread(target=stream, args=(backend_sock, client_sock), daemon=True, name='backend')
     thread_down.start()
-
-
-def endstream(backend_sock, client_sock, reason=None):
-    # print(reason)
-    time.sleep(2)  # wait two second for another thread to flush
-    client_sock.close()
-    backend_sock.close()
-
-
-def downstream(backend_sock, client_sock):
-    try:
-        while True:
-            data = backend_sock.recv(4096)
-            if not data: raise Exception('backend pipe close')
-            client_sock.sendall(data)
-    except Exception as e:
-        endstream(backend_sock, client_sock, reason=f'downstream: {repr(e)}')
-
-
-def upstream(backend_sock, client_sock):
-    try:
-        handshake(backend_sock, client_sock)
-        while True:
-            data = client_sock.recv(4096)
-            if not data: raise Exception('client pipe close')
-            backend_sock.sendall(data)
-    except Exception as e:
-        endstream(backend_sock, client_sock, reason=f'upstream: {repr(e)}')
+    stream(client_sock, backend_sock)
 
 
 def listen(host, port):
@@ -88,7 +84,7 @@ def listen(host, port):
         # print('someone connected')
         time.sleep(accept_time_sleep)  # avoid server crash on flooding request
         # avoid memory leak by telling os its belong to main program, so gc collect it when thread finish
-        thread_up = threading.Thread(target=upstream, args=(backend_sock, client_sock), daemon=True)
+        thread_up = threading.Thread(target=tunnel, args=(backend_sock, client_sock), daemon=True, name='client')
         thread_up.start()
 
 
