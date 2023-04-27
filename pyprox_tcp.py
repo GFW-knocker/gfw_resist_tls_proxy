@@ -20,26 +20,38 @@ first_time_sleep = 0.01  # speed control, avoid server crash if huge number of u
 accept_time_sleep = 0.01  # avoid server crash on flooding request -> max 100 sockets per second
 
 
-# Main method: lets make handshake (the only way GFW can detect) costly.
-def handshake(backend, client):
-    data = client.recv(16384)
-    if not data: raise Exception('syn close')
-
-    # connect to backend
+def backend_connect(backend):
+    # Can be used to rotating IPs here
     backend.connect((Cloudflare_IP, Cloudflare_port))
 
-    # print(f'{len(data)}B client hello recevied, lets send {L_fragment}B per {fragment_sleep} seconds to CF.')
-    for i in range(0, len(data), L_fragment):
-        fragment_data = data[i: i + L_fragment]
-        print(f'sending {len(fragment_data)} bytes')
-        backend.sendall(fragment_data)
-        time.sleep(fragment_sleep)
-    print('----------finish------------')
 
-    data = backend.recv(16384)
-    if not data: raise Exception('syn-ack close')
-    client.sendall(data)
-    # print(f'{len(data)}B hello response moved to client.')
+# Main method: lets make handshake (the only way GFW can detect) costly.
+def handshake(backend, client):
+    try:
+        data = client.recv(16384)
+        if not data: raise Exception('syn close')
+
+        # connect to backend after received client hello
+        backend_connect(backend)
+
+        # print(f'{len(data)}B client hello recevied, lets send {L_fragment}B per {fragment_sleep} seconds to CF.')
+        for i in range(0, len(data), L_fragment):
+            fragment_data = data[i: i + L_fragment]
+            print(f'sending {len(fragment_data)} bytes')
+            backend.sendall(fragment_data)
+            time.sleep(fragment_sleep)
+        print('----------finish------------')
+
+        data = backend.recv(16384)
+        if not data: raise Exception('syn-ack close')
+        client.sendall(data)
+        # print(f'{len(data)}B hello response moved to client.')
+        return True
+    except Exception as e:
+        # print(f'Handshake: {repr(e)}')
+        time.sleep(2)  # wait two second for another thread to flush
+        backend.close()
+        client.close()
 
 
 def stream(reader, writer):
@@ -57,13 +69,7 @@ def stream(reader, writer):
 
 def tunnel(backend, client):
     time.sleep(first_time_sleep)  # speed control + waiting for packet to fully recieve
-
-    try: handshake(backend, client)
-    except Exception as e:
-        # print(f'Handshake: {repr(e)}')
-        time.sleep(2)  # wait two second for another thread to flush
-        backend.close()
-        client.close()
+    if not handshake(backend, client): return
 
     thread_down = threading.Thread(target=stream, args=(backend, client), daemon=True, name='backend')
     thread_down.start()
