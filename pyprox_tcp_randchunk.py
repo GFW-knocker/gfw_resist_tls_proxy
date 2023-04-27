@@ -22,12 +22,13 @@ if os.name == 'posix':
 
 listen_PORT = 2500    # pyprox listening to 127.0.0.1:listen_PORT
 
-# Cloudflare_IP = '162.159.135.42'   # plos.org (can be any dirty cloudflare ip)
-Cloudflare_IP = '162.159.36.93'  # 
+Cloudflare_IP = '162.159.135.42'   # plos.org (can be any dirty cloudflare ip)
+# Cloudflare_IP = '162.159.36.93'  # 
+
 Cloudflare_port = 443
 
-num_fragment = 47  # total number of chunks that ClientHello devided into (chunks with random size)
-fragment_sleep = 0.01  # sleep between each fragment to make GFW-cache full so it forget previous chunks. LOL.
+num_fragment = 67  # total number of chunks that ClientHello devided into (chunks with random size)
+fragment_sleep = 0.001  # sleep between each fragment to make GFW-cache full so it forget previous chunks. LOL.
 
 
 
@@ -63,6 +64,8 @@ class ThreadedServer(object):
         first_flag = True
         backend_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         backend_sock.settimeout(my_socket_timeout)
+        backend_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)   #force localhost kernel to send TCP packet immediately (idea: @free_the_internet)
+
         while True:
             try:
                 if( first_flag == True ):                        
@@ -85,9 +88,9 @@ class ThreadedServer(object):
                         raise Exception('cli syn close')
 
                 else:
-                    data = client_sock.recv(4096)
+                    data = client_sock.recv(16384)
                     if data:
-                        backend_sock.sendall(data)
+                        backend_sock.sendall(data)                        
                     else:
                         raise Exception('cli pipe close')
                     
@@ -138,7 +141,7 @@ def send_data_in_fragment(data , sock):
     for i in indices:
         fragment_data = data[i_pre:i]
         i_pre=i
-        print('send ',len(fragment_data),' bytes')                        
+        # print('send ',len(fragment_data),' bytes')                        
         
         # sock.send(fragment_data)
         sock.sendall(fragment_data)
