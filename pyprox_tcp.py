@@ -37,32 +37,36 @@ def downstream(backend_sock, client_sock):
         endstream(backend_sock, client_sock, reason=f'downstream: {repr(e)}')
 
 
+# Main method: lets make handshake (the only way GFW can detect) costly.
+def shake_hand(backend_sock, client_sock):
+    data = client_sock.recv(16384)
+    if not data: raise Exception('client syn close')
+    backend_sock.connect((Cloudflare_IP, Cloudflare_port))
+
+    # print(f'{len(data)}B client hello recevied, lets send {L_fragment}B per {fragment_sleep} seconds to CF.')
+    for i in range(0, len(data), L_fragment):
+        fragment_data = data[i: i + L_fragment]
+        print(f'sending {len(fragment_data)} bytes')
+        backend_sock.sendall(fragment_data)
+        time.sleep(fragment_sleep)
+    print('----------finish------------')
+
+    data = backend_sock.recv(16384)
+    if not data: raise Exception('backend syn-ack close')
+    client_sock.sendall(data)
+    # print(f'{len(data)}B hello response moved to client.')
+
+    thread_down = threading.Thread(target=downstream, args=(backend_sock, client_sock), daemon=True)
+    thread_down.start()
+
+
 def upstream(client_sock):
     backend_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     backend_sock.settimeout(my_socket_timeout)
     time.sleep(first_time_sleep)  # speed control + waiting for packet to fully recieve
 
     try:
-        data = client_sock.recv(16384)
-        if not data: raise Exception('client syn close')
-        backend_sock.connect((Cloudflare_IP, Cloudflare_port))
-
-        # print(f'{len(data)}B client hello recevied, lets send {L_fragment}B per {fragment_sleep} seconds to CF.')
-        for i in range(0, len(data), L_fragment):
-            fragment_data = data[i: i + L_fragment]
-            print(f'sending {len(fragment_data)} bytes')
-            backend_sock.sendall(fragment_data)
-            time.sleep(fragment_sleep)
-        print('----------finish------------')
-
-        data = backend_sock.recv(16384)
-        if not data: raise Exception('backend syn-ack close')
-        client_sock.sendall(data)
-        # print(f'{len(data)}B hello response moved to client.')
-
-        thread_down = threading.Thread(target=downstream, args=(backend_sock, client_sock), daemon=True)
-        thread_down.start()
-
+        shake_hand(backend_sock, client_sock)
         while True:
             data = client_sock.recv(4096)
             if not data: raise Exception('client pipe close')
@@ -72,11 +76,6 @@ def upstream(client_sock):
 
 
 def listen(host, port):
-    if os.name == 'posix':
-        import resource
-        print('[linux] set max_num_open_socket from 1024 to 128k')
-        resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
-
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((host, port))
@@ -95,4 +94,9 @@ def listen(host, port):
 
 
 if __name__ == '__main__':
+    if os.name == 'posix':
+        import resource
+        print('[linux] set max_num_open_socket from 1024 to 128k')
+        resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
+
     listen('', listen_PORT)
