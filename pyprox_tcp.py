@@ -22,6 +22,7 @@ accept_time_sleep = 0.01  # avoid server crash on flooding request -> max 100 so
 
 # Main method: lets make handshake (the only way GFW can detect) costly.
 def handshake(backend_sock, client_sock):
+    time.sleep(first_time_sleep)  # speed control + waiting for packet to fully recieve
     data = client_sock.recv(16384)
     if not data: raise Exception('client syn close')
     backend_sock.connect((Cloudflare_IP, Cloudflare_port))
@@ -60,11 +61,7 @@ def downstream(backend_sock, client_sock):
         endstream(backend_sock, client_sock, reason=f'downstream: {repr(e)}')
 
 
-def upstream(client_sock):
-    backend_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    backend_sock.settimeout(my_socket_timeout)
-    time.sleep(first_time_sleep)  # speed control + waiting for packet to fully recieve
-
+def upstream(backend_sock, client_sock):
     try:
         handshake(backend_sock, client_sock)
         while True:
@@ -85,11 +82,13 @@ def listen(host, port):
     while True:
         client_sock, _ = sock.accept()
         client_sock.settimeout(my_socket_timeout)
+        backend_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        backend_sock.settimeout(my_socket_timeout)
 
         # print('someone connected')
         time.sleep(accept_time_sleep)  # avoid server crash on flooding request
         # avoid memory leak by telling os its belong to main program, so gc collect it when thread finish
-        thread_up = threading.Thread(target=upstream, args=(client_sock,), daemon=True)
+        thread_up = threading.Thread(target=upstream, args=(backend_sock, client_sock), daemon=True)
         thread_up.start()
 
 
