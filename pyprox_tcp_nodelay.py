@@ -39,7 +39,7 @@ def handshake(backend, client):
         for i in range(0, length, L_fragment):
             fragment_data = data[i: i + L_fragment]
             backend.sendall(fragment_data)
-        print('----------finish------------')
+        print('send completed, wait for response...')
 
         data = backend.recv(CHUNK_SIZE)
         if not data: raise Exception('syn-ack close')
