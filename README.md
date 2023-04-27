@@ -6,7 +6,7 @@
 این محصول نهایی نیست یه اسکریپت پایتونه جهت اثبات ادعا<br>
 بزارید به نقطه پایدار برسیم بعد برا کلاینت v2ray پیاده میشه<br>
 الان متخصص حرفه ای شبکه و برنامه نویس c لازم داریم جهت تبادل اطلاعات - لطفا در Discussions پیام دهید<br>
-
+میخوایم یه کانفیگ مستقیم بسازیم بدون سرور فقط برا یوتیوب کسی dokodemo-door بلده؟ -> Discussion <br>
 
 # internet for everyone or no one
 سلام گرم به همه دوستانی که برای حق اولیه و ابتدایی شهروندی ، برای دسترسی به اینترنت ، تلاش میکنند
@@ -86,6 +86,17 @@ so it forgets those fragments after a second. LOL<br>
 it's impossible to look at huge traffic for a packet that don't know when or where it arrives. LOL<br>
 so it's forced to Give up. LOL<br>
 
+# can GFW block fragments? (skip if you want)
+1. fragmentation is part of tcp/ip specification and all network device must support it.<br>
+2. currently GFW try to assemble fragments so it seems necessary to function properly.<br>
+3. dropping TCP fragmentation violate network rule and cause instability<br>
+4. in high-speed routers fragmentation occurs in general<br>
+5. GFW cant cache TBs of data every second<br>
+6. GFW cant hold every TCP packet and wait for fragmentations to come<br>
+7. even if GFW detects fragmentation in some manner , adding delay between SYN,ACK fall him in trouble again. LOL<br>
+8. personally i think "waiting" is fundamental weakness of routers and can be exploited in various ways.<br>
+9. your ideas are welcome -> Discussion<br>
+
 # How to run
 فارسی بگم: کانفیگ وب سوکت با tls فعال پشت کلودفلر با پروکسی روشن لازمه<br>
 این اسکریپت ایپی کثیف کلودفلر رو دور میزنه حتی با دامنه فیلترشده<br>
@@ -100,14 +111,10 @@ so it's forced to Give up. LOL<br>
 <code>python pyprox_tcp.py</code><br>
 5. monitor traffic by Wireshark or Microsoft Network Monitor<br>
 6. adjust fragment_size & fragment_sleep<br>
-typical Client Hello packet is ~300 byte<br>
-we split 300 into {77+77+77+69} and send each by delay of 0.3 second<br>
-<code>fragment_size=77 byte  ,  fragment_sleep=0.3 sec -> moderate packet size with moderate delay -> work good</code><br>
-another setup might be:<br>
-<code>fragment_size=77 byte  ,  fragment_sleep=0.2 sec -> moderate packet size with moderate delay -> work nice</code><br>
-<code>fragment_size=17 byte  ,  fragment_sleep=0.03 sec -> too small chunk with less delay -> work good</code><br>
+<code>typical Client Hello packet is ~300 byte</code><br>
+<code>we split it into N>10 packet and send each by some delay</code><br>
 <code>too big chunk -> assembled by GFW -> TCP-RST recieved</code><br>
-<code>too small delay  -> assembled by GFW -> TCP-RST recieved</code><br>
+<code>too small delay -> assembled by GFW -> TCP-RST recieved</code><br>
 7. just surf the web using your filtered SNI and a dirty Cloudflare IP !<br>
 
 # run python script in linux:
@@ -130,16 +137,10 @@ another setup might be:<br>
 <code>python pyprox.py</code><br>
 
 
-
-# We are working on it to adjust parameters better
-it might be slow at initiating TLS handshake<br>
-but we make it better by setting up persistent TLS<br>
-stay tuned!<br>
-
 # TO DO NEXT
 1. implement into v2ray clients or xray-core -> Client Hello Fragmentation option<br>
 2. setup persistent TLS (thus one handshake is enough for everything)<br>
 3. sending TCP packet in reverse time order<br>
-4. your ideas are welcome<br>
+4. your ideas are welcome -> Discussion<br>
 
 
