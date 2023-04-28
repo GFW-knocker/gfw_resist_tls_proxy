@@ -4,6 +4,7 @@
 ممنون از free_the_internet بابت ایده اتصال مستقیم به یوتیوب<br>
 
 # نحوه اتصال
+کانفیگ مخصوص گوشی هم تا دقایقی دیگر آماده میشود<br>
 ابتدا  youtube_config.json را دانلود میکنید<br>
 در v2ray client خود از قسمت custom config ، فایل کانفیگ رو import میکنید<br> 
 اسکریپت youtube_pyprox_randchunk.py رو در پایتون اجرا میکنید<br> 
