@@ -8,30 +8,26 @@ import copy
 import time
 import datetime
 import logging
+import random
 from logging.handlers import TimedRotatingFileHandler
 
 
-if os.name == 'posix':
-    print('os is linux')
-    import resource   # ( -> pip install python-resources )
-    # set linux max_num_open_socket from 1024 to 128k
-    resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
 
 
+listen_PORT = 2500    # (if you change the port , you need to change port in youtube_config.json too , in section outbound -> freedom -> reverseTLS(HTTP) -> "redirect": "127.0.0.1:2500")  
 
-listen_PORT = 2500    # pyprox listening to 127.0.0.1:listen_PORT
+Google_IP = '216.239.38.120'   # ( ping google.com and put its ip here ; most of google IPs works also for youtube )
+Google_port = 443
 
-Cloudflare_IP = '162.159.135.42'   # plos.org (can be any dirty cloudflare ip)
-Cloudflare_port = 443
 
-L_fragment = 77   # length of fragments of Client Hello packet (L_fragment Byte in each chunk)
-fragment_sleep = 0.2  # sleep between each fragment to make GFW-cache full so it forget previous chunks. LOL.
+num_fragment = 27  # total number of chunks that ClientHello devided into (chunks with random size)
+fragment_sleep = 0.001  # sleep between each fragment to make GFW-cache full so it forget previous chunks. LOL.
 
 
 
 # ignore description below , its for old code , just leave it intact.
-my_socket_timeout = 60 # default for google is ~21 sec , recommend 60 sec unless you have low ram and need close soon
-first_time_sleep = 0.01 # speed control , avoid server crash if huge number of users flooding (default 0.1)
+my_socket_timeout = 21 # default for google is ~21 sec , recommend 60 sec unless you have low ram and need close soon
+first_time_sleep = 0.1 # speed control , avoid server crash if huge number of users flooding
 accept_time_sleep = 0.01 # avoid server crash on flooding request -> max 100 sockets per second
 
 
@@ -74,7 +70,7 @@ class ThreadedServer(object):
                     #print('user talk :')
 
                     if data:                                                                    
-                        backend_sock.connect((Cloudflare_IP,Cloudflare_port))
+                        backend_sock.connect((Google_IP,Google_port))
                         thread_down = threading.Thread(target = self.my_downstream , args = (backend_sock , client_sock) )
                         thread_down.daemon = True
                         thread_down.start()
@@ -85,9 +81,9 @@ class ThreadedServer(object):
                         raise Exception('cli syn close')
 
                 else:
-                    data = client_sock.recv(4096)
+                    data = client_sock.recv(16384)
                     if data:
-                        backend_sock.sendall(data)
+                        backend_sock.sendall(data)                        
                     else:
                         raise Exception('cli pipe close')
                     
@@ -129,16 +125,24 @@ class ThreadedServer(object):
 
 
 def send_data_in_fragment(data , sock):
-    
-    for i in range(0, len(data), L_fragment):
-        fragment_data = data[i:i+L_fragment]
-        print('send ',len(fragment_data),' bytes')                        
+    L_data = len(data)
+    indices = random.sample(range(1,L_data-1), num_fragment-1)
+    indices.sort()
+    print('indices=',indices)
+
+    i_pre=0
+    for i in indices:
+        fragment_data = data[i_pre:i]
+        i_pre=i
+        # print('send ',len(fragment_data),' bytes')                        
         
         # sock.send(fragment_data)
         sock.sendall(fragment_data)
-
+        
         time.sleep(fragment_sleep)
-
+    
+    fragment_data = data[i_pre:L_data]
+    sock.sendall(fragment_data)
     print('----------finish------------')
 
 
