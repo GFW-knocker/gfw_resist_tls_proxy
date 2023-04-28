@@ -6,8 +6,8 @@
 مستقیم ، پرسرعت ، بدون هیچ سروری<br> 
 استحکامات دشمن یکی پس از دیگری فرو میریزد<br>
 ممنون از @free_the_internet برای ایده اتصال مستقیم به یوتیوب<br>
-ممنون از IRCF و iSegaro برای promote کردن این روش<br>
-<a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/blob/main/youtube_README.md">نحوه اتصال</a><br>
+ممنون از IRCF و iSegaro که مدیون زحماتشان هستیم<br>
+<a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/main/youtube">نحوه اتصال</a><br>
 
 
 # آپدیت 7 اردیبهشت
