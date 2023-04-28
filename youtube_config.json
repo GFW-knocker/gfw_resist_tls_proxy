@@ -1,0 +1,177 @@
+{
+  "log": {
+    "loglevel": "none",
+     "access": ""
+  },
+
+  "inbounds": [
+    {
+      "tag": "socks",
+      "port": 10808,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "routeOnly": false
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "allowTransparent": false
+      }
+    },
+    {
+      "tag": "http",
+      "port": 10809,
+      "listen": "127.0.0.1",
+      "protocol": "http",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "routeOnly": false
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "allowTransparent": false
+      }
+    }
+  ],
+
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    },
+
+    {
+      "protocol": "freedom",
+      "settings": {
+        "redirect": "127.0.0.1:2500"
+       },
+      "tag": "reverseTLS"
+    },
+
+   {
+      "protocol": "freedom",
+      "settings": {
+        "redirect": "127.0.0.1:2500"
+       },
+      "tag": "reverseHTTP"
+    },
+
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+
+
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "type": "field"
+      },
+
+      
+
+    {
+      "domain": [
+        "geosite:google",
+        "www.youtube.com",
+        "youtube.com",
+        "google.com"	
+      ],
+       "protocol":["http"],
+       "outboundTag": "reverseHTTP",
+       "type": "field"
+    },
+
+
+
+    {
+      "domain": [
+        "geosite:google",
+        "www.youtube.com",
+        "youtube.com",
+        "google.com"
+      ],
+       "protocol":["tls"],
+       "outboundTag": "reverseTLS",
+       "type": "field"
+    },
+
+
+    {
+    "domain": [
+      "geosite:category-ir",
+      "geosite:cn"
+          ],
+           "outboundTag": "direct",
+           "type": "field"
+    },
+    
+    {
+      "ip": [
+        "142.251.16.91",
+        "142.251.32.110",
+        "142.251.35.174",
+        "142.251.40.110",
+        "142.251.40.142",
+        "142.251.64.110",
+        "142.251.72.110",
+        "142.251.80.110"
+      ],
+      "protocol":["http"],
+     "outboundTag": "reverseHTTP",
+      "type": "field"
+    },
+
+
+    {
+      "ip": [
+        "142.251.16.91",
+        "142.251.32.110",
+        "142.251.35.174",
+        "142.251.40.110",
+        "142.251.40.142",
+        "142.251.64.110",
+        "142.251.72.110",
+        "142.251.80.110"
+      ],
+      "protocol":["tls"],
+     "outboundTag": "reverseTLS",
+      "type": "field"
+    },
+
+
+    
+    {
+      "ip": [
+        "geoip:cn",
+        "geoip:ir",
+        "geoip:private"
+      ],
+      "outboundTag": "direct",
+      "type": "field"
+    }
+
+
+
+    ]
+  }
+}
