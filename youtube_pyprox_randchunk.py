@@ -12,17 +12,11 @@ import random
 from logging.handlers import TimedRotatingFileHandler
 
 
-if os.name == 'posix':
-    print('os is linux')
-    import resource   # ( -> pip install python-resources )
-    # set linux max_num_open_socket from 1024 to 128k
-    resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
-
 
 
 listen_PORT = 2500    # (if you change the port , you need to change port in youtube_config.json too , in section outbound -> freedom -> reverseTLS(HTTP) -> "redirect": "127.0.0.1:2500")  
 
-Google_IP = '216.239.38.120'   # ( ping google.com and put its ip here ; most google ip works also for youtube )
+Google_IP = '216.239.38.120'   # ( ping google.com and put its ip here ; most of google IPs works also for youtube )
 Google_port = 443
 
 
