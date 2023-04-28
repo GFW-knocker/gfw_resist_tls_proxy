@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  proxy:
+    container_name: "GFW_RESIST_TLS_PROXY"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2500:2500"
