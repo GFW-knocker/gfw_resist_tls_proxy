@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import os
 import socket
 import time
 import threading
@@ -102,9 +101,4 @@ def run_proxy(host, port):
 
 
 if __name__ == '__main__':
-    if os.name == 'posix':
-        import resource
-        print('[linux] set max_num_open_socket from 1024 to 128k')
-        resource.setrlimit(resource.RLIMIT_NOFILE, (127000, 128000))
-
     run_proxy('', listen_PORT)
