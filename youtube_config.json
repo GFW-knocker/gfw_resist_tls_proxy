@@ -60,16 +60,27 @@
       "settings": {
         "redirect": "127.0.0.1:2500"
        },
-      "tag": "reverseTLS"
+      "tag": "reverseTLS_Google"
     },
 
+    
    {
+    "protocol": "freedom",
+    "settings": {
+      "redirect": "127.0.0.1:2500"
+     },
+    "tag": "reverseHTTP_Google"
+   },
+
+    {
       "protocol": "freedom",
       "settings": {
-        "redirect": "127.0.0.1:2500"
+        "redirect": "127.0.0.1:2501"
        },
-      "tag": "reverseHTTP"
+      "tag": "reverseTLS_Gvideo"
     },
+
+
 
 
     {
@@ -104,13 +115,13 @@
       
       {
         "domain": [
-          "geosite:google",
-          "www.youtube.com",
           "youtube.com",
-          "google.com"	
+          "google.com",
+          "googlevideo.com",
+          "googleapis.com"
         ],
          "protocol":["http"],
-         "outboundTag": "reverseHTTP",
+         "outboundTag": "reverseHTTP_Google",
          "type": "field",
          "enabled": true
       },
@@ -118,58 +129,30 @@
   
       {
         "domain": [
-          "geosite:google",
-          "www.youtube.com",
+          "google.com",
           "youtube.com",
-          "google.com"
+          "ytimg.com",
+          "ggpht.com",
+          "googleusercontent.com",
+          "gstatic.com",
+          "googleapis.com"
         ],
          "protocol":["tls"],
-         "outboundTag": "reverseTLS",
+         "outboundTag": "reverseTLS_Google",
          "type": "field",
          "enabled": true
       },
       
 
       {
-        "ip": [
-          "10.10.34.34",
-          "10.10.34.35",
-          "142.251.16.91",
-          "142.251.32.110",
-          "142.251.35.174",
-          "142.251.40.110",
-          "142.251.40.142",
-          "142.251.64.110",
-          "142.251.72.110",
-          "142.251.80.110"
+        "domain": [
+          "googlevideo.com"
         ],
-        "protocol":["http"],
-       "outboundTag": "reverseHTTP",
-        "type": "field",
-        "enabled": true
-      },
-
-
-      
-      {
-        "ip": [
-          "10.10.34.34",
-          "10.10.34.35",
-          "142.251.16.91",
-          "142.251.32.110",
-          "142.251.35.174",
-          "142.251.40.110",
-          "142.251.40.142",
-          "142.251.64.110",
-          "142.251.72.110",
-          "142.251.80.110"
-        ],
-        "protocol":["tls"],
-       "outboundTag": "reverseTLS",
-        "type": "field",
-        "enabled": true
+         "protocol":["tls"],
+         "outboundTag": "reverseTLS_Gvideo",
+         "type": "field",
+         "enabled": true
       }
-      
 
 
     ]
