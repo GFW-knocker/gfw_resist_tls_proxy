@@ -1,0 +1,177 @@
+{
+  "log": {
+    "access": "",
+    "error": "",
+    "loglevel": "warning"
+  },
+
+  "inbounds": [
+    {
+      "tag": "socks",
+      "port": 10808,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "allowTransparent": false
+      }
+    },
+    {
+      "tag": "http",
+      "port": 10809,
+      "listen": "127.0.0.1",
+      "protocol": "http",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "allowTransparent": false
+      }
+    }
+  ],
+
+
+
+
+  "outbounds": [
+
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    },
+
+    {
+      "protocol": "freedom",
+      "settings": {
+        "redirect": "127.0.0.1:2500"
+       },
+      "tag": "reverseTLS"
+    },
+
+   {
+      "protocol": "freedom",
+      "settings": {
+        "redirect": "127.0.0.1:2500"
+       },
+      "tag": "reverseHTTP"
+    },
+
+
+    {
+      "tag": "block",
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      }
+    }
+
+
+  ],
+
+
+
+  "routing": {
+
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "enabled": true
+      },
+      
+
+      
+      {
+        "domain": [
+          "geosite:google",
+          "www.youtube.com",
+          "youtube.com",
+          "google.com"	
+        ],
+         "protocol":["http"],
+         "outboundTag": "reverseHTTP",
+         "type": "field",
+         "enabled": true
+      },
+  
+  
+      {
+        "domain": [
+          "geosite:google",
+          "www.youtube.com",
+          "youtube.com",
+          "google.com"
+        ],
+         "protocol":["tls"],
+         "outboundTag": "reverseTLS",
+         "type": "field",
+         "enabled": true
+      },
+      
+
+      {
+        "ip": [
+          "10.10.34.34",
+          "10.10.34.35",
+          "142.251.16.91",
+          "142.251.32.110",
+          "142.251.35.174",
+          "142.251.40.110",
+          "142.251.40.142",
+          "142.251.64.110",
+          "142.251.72.110",
+          "142.251.80.110"
+        ],
+        "protocol":["http"],
+       "outboundTag": "reverseHTTP",
+        "type": "field",
+        "enabled": true
+      },
+
+
+      
+      {
+        "ip": [
+          "10.10.34.34",
+          "10.10.34.35",
+          "142.251.16.91",
+          "142.251.32.110",
+          "142.251.35.174",
+          "142.251.40.110",
+          "142.251.40.142",
+          "142.251.64.110",
+          "142.251.72.110",
+          "142.251.80.110"
+        ],
+        "protocol":["tls"],
+       "outboundTag": "reverseTLS",
+        "type": "field",
+        "enabled": true
+      }
+      
+
+
+    ]
+  }
+}
