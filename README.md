@@ -5,7 +5,8 @@
 <a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/main/youtube">نحوه اتصال</a><br>
 
 # آپدیت 7 اردیبهشت
-اسکریپت randchunk به نظر خیلی بهتر شد - تعداد فرگمنت 67 تا و تاخیر 0.001 با اضافه کردن tcp_nodelay - ممنون از free_the_internet@  
+اسکریپت randchunk به نظر خیلی بهتر شد - تعداد فرگمنت 67 تا و تاخیر 0.001 با اضافه کردن tcp_nodelay - ممنون از <a href="https://github.com/free-the-internet
+">free_the_internet@</a><br>  
 سرعت اسکریپت اول هم بهتر شد با همین tcp_nodelay - این کرنل رو مجبور میکنه که اسمبل نکنه رو سیستم خودمون<br>
 # آپدیت 5 اردیبهشت
 فایل جدید randchunk میاد پکت رو رندوم به 47 قسمت نامساوی تقسیم میکنه -به روش سامورایی با تاخیر کم- یه کوچولو بهتر شده انگار<br> 
