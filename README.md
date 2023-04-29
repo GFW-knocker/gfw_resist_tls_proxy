@@ -68,17 +68,17 @@ so it's forced to Give up. LOL<br>
 # can GFW block fragments? (skip if you want)
 1. fragmentation is part of tcp/ip specification and all network device must support it.<br>
 2. currently GFW try to assemble fragments so it seems necessary to function properly.<br>
-3. dropping TCP fragmentation violate network rule and cause instability<br>
+3. dropping TCP fragments violate network rule and cause instability<br>
 4. in high-speed routers fragmentation occurs in general<br>
 5. GFW cant cache TBs of data every second<br>
-6. GFW cant hold every TCP packet and wait for fragmentations to come<br>
-7. even if GFW detects fragmentation in some manner , adding delay between SYN,ACK fall him in trouble again. LOL<br>
+6. GFW cant hold every TCP packet and wait for fragments to come<br>
+7. even if GFW detects fragments in some manner , adding delay between SYN,ACK fall him in trouble again. LOL<br>
 8. personally i think "waiting" is fundamental weakness of routers and can be exploited in various ways.<br>
 9. your ideas are welcome -> Discussion<br>
 
 # How to run
 فارسی بگم: کانفیگ وب سوکت با tls فعال پشت کلودفلر با پروکسی روشن لازمه<br>
-این اسکریپت ایپی کثیف کلودفلر رو دور میزنه حتی با دامنه فیلترشده<br>
+این اسکریپت ایپی کثیف کلودفلر رو دور میزنه و دامنه فیلترشده رو<br>
 فعلا غیر از ایرانسل رو باقی isp ها کار میکنه با مقداری باگ
 <br>
 1. assume that you have v2ray config {websocket+tls+Cloudflare}<br>
