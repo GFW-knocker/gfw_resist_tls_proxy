@@ -9,6 +9,7 @@ https://hiddify.github.io/filter.html<br>
 Good By DPI<br>
 Green Tunnel<br>
 DPI Tunnel Android<br>
+https://github.com/msasanmh/SecureDNSClient<br>
 
 
 # یوتیوب آزاد شد
