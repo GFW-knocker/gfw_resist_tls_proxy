@@ -1,14 +1,8 @@
 # gfw_resist_tls_proxy 
+# Mention your forks (and your works) in Discussions -> forks
+**we add good works in main page here**<br>
 # یوتیوب آزاد شد ( برا یوتیوب باگ داریم فعلا تست نکنید)
-شنوندگان عزیز توجه فرمایید : یوتیوب آزاد شد<br>
-از این پس بصورت مستقیم بدون هیچ سرور خاصی فقط با pyprox میتوانید از یوتیوب پرسرعت استفاده کنید<br>
-با همه اپراتورها کار میکنه حتی با ایرانسل<br>
-مستقیم ، پرسرعت ، بدون هیچ سروری<br> 
-استحکامات دشمن یکی پس از دیگری فرو میریزد<br>
-ممنون از @free_the_internet برای ایده اتصال مستقیم به یوتیوب<br>
-ممنون از IRCF و iSegaro که مدیون زحماتشان هستیم<br>
 <a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/main/youtube">نحوه اتصال</a><br>
-
 
 # آپدیت 7 اردیبهشت
 اسکریپت randchunk به نظر خیلی بهتر شد - تعداد فرگمنت 67 تا و تاخیر 0.001 با اضافه کردن tcp_nodelay - ممنون از free_the_internet@  
