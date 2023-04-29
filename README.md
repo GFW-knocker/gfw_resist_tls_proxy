@@ -16,7 +16,7 @@ load balancer <br>
 این محصول نهایی نیست یه اسکریپت پایتونه جهت اثبات ادعا<br>
 <a href="https://twitter.com/rouzbehra/status/1651843600504979456">روزبه</a> اومده برای websocket روی 
 <a href="https://github.com/rrouzbeh/v2rayNG/releases">کلاینت v2rayNG</a> پیاده کرده <br>
-الان متخصص حرفه ای شبکه و برنامه نویس c لازم داریم جهت تبادل اطلاعات - لطفا در Discussions پیام دهید<br>
+الان متخصص حرفه ای شبکه لازم داریم جهت تبادل اطلاعات - لطفا در Discussions پیام دهید<br>
 
 
 # goodbye SNI filtering & goodbye GFW mf'er
