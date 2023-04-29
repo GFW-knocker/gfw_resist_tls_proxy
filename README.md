@@ -5,8 +5,7 @@
 <a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/main/youtube">نحوه اتصال</a><br>
 
 # آپدیت 7 اردیبهشت
-اسکریپت randchunk به نظر خیلی بهتر شد - تعداد فرگمنت 67 تا و تاخیر 0.001 با اضافه کردن tcp_nodelay - ممنون از <a href="https://github.com/free-the-internet
-">free_the_internet@</a><br>  
+اسکریپت randchunk به نظر خیلی بهتر شد با اضافه کردن tcp_nodelay - ممنون از <a href="https://github.com/free-the-internet">free_the_internet@</a> بابت ایده<br>
 سرعت اسکریپت اول هم بهتر شد با همین tcp_nodelay - این کرنل رو مجبور میکنه که اسمبل نکنه رو سیستم خودمون<br>
 # آپدیت 5 اردیبهشت
 فایل جدید randchunk میاد پکت رو رندوم به 47 قسمت نامساوی تقسیم میکنه -به روش سامورایی با تاخیر کم- یه کوچولو بهتر شده انگار<br> 
@@ -15,7 +14,8 @@
 <a href="https://github.com/nvv1d">nvv1d</a>
 load balancer <br>
 این محصول نهایی نیست یه اسکریپت پایتونه جهت اثبات ادعا<br>
-بزارید به نقطه پایدار برسیم بعد برا کلاینت v2ray پیاده میشه<br>
+<a href="https://twitter.com/rouzbehra/status/1651843600504979456">روزبه</a> اومده برای websocket روی 
+<a href="https://github.com/rrouzbeh/v2rayNG/releases">کلاینت v2rayNG</a> پیاده کرده <br>
 الان متخصص حرفه ای شبکه و برنامه نویس c لازم داریم جهت تبادل اطلاعات - لطفا در Discussions پیام دهید<br>
 
 
