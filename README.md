@@ -1,8 +1,9 @@
 
 # Mention your forks (and your works) in Discussions -> forks
 **we add good works in main page here**<br>
-# یوتیوب و بیشتر از یوتیوب - به زودی با ابزاری جدید
-مستقیم - بدون سرور و برای همه اپراتورها
+# یوتیوب و بیشتر از یوتیوب با ابزاری جدید:
+مستقیم - بدون سرور و برای همه اپراتورها<br> 
+<a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">نسخه آزمایشی</a><br>
 
 # آپدیت 7 اردیبهشت
 اسکریپت randchunk به نظر خیلی بهتر شد با اضافه کردن tcp_nodelay - ممنون از <a href="https://github.com/free-the-internet">free_the_internet@</a> بابت ایده<br>
