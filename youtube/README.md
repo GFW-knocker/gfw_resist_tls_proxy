@@ -1,15 +1,5 @@
-# یگ باگ گزارش شد - فعلا تست نکنید - ببخشید
-# داریم درستش میکنیم - تست نکنید
-بچه ها رو یوتیوب کار نکنید<br>
-کارای واجب تر هست<br>
-پروژهای خوب گیت هاب رو تست کنید رو نت های مختلف<br>
-برا ایرانسل مخصوصا<br>
-چیزی پیدا کردید به نام خودتون promote میشه توسط isegaro و IRCF<br>
-https://hiddify.github.io/filter.html<br>
-Good By DPI<br>
-Green Tunnel<br>
-DPI Tunnel Android<br>
-https://github.com/msasanmh/SecureDNSClient<br>
+# پروژه به این آدرس منتقل شد
+اینجا : <a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">gfw_resist_HTTPS_proxy</a><br>
 
 
 # یوتیوب آزاد شد
