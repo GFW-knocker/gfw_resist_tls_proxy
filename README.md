@@ -1,8 +1,8 @@
 
 # Mention your forks (and your works) in Discussions -> forks
 **we add good works in main page here**<br>
-# یوتیوب آزاد شد ( برا یوتیوب باگ داریم فعلا تست نکنید)
-<a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/main/youtube">نحوه اتصال</a><br>
+# یوتیوب و بیشتر از یوتیوب - به زودی با ابزاری جدید
+مستقیم - بدون سرور و برای همه اپراتورها
 
 # آپدیت 7 اردیبهشت
 اسکریپت randchunk به نظر خیلی بهتر شد با اضافه کردن tcp_nodelay - ممنون از <a href="https://github.com/free-the-internet">free_the_internet@</a> بابت ایده<br>
