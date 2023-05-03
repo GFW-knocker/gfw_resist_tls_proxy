@@ -1,6 +1,9 @@
 
 # Mention your forks (and your works) in Discussions -> forks
-**we add good works in main page here**<br>
+- <a href="https://github.com/sambali9/Xray-core">Xray core with Fragments</a> by <a href="https://github.com/sambali9">sambali9</a> --- we love you dear sambali9. WE LOVE YOU.<br>
+- <a href="https://github.com/rrouzbeh/v2rayNG">v2rayNG with Fragments</a> by <a href="https://github.com/rrouzbeh">rrouzbeh</a> --- we love you dear روزبه. WE LOVE YOU.<br>
+
+
 # یوتیوب و بیشتر از یوتیوب با ابزاری جدید:
 مستقیم - بدون سرور و برای همه اپراتورها<br> 
 <a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">نسخه آزمایشی</a><br>
