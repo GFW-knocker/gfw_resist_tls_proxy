@@ -4,8 +4,8 @@
 - <a href="https://github.com/rrouzbeh/v2rayNG">v2rayNG with Fragments</a> by <a href="https://github.com/rrouzbeh">rrouzbeh</a> --- we love you dear روزبه. WE LOVE YOU.<br>
 
 
-# یوتیوب و بیشتر از یوتیوب با ابزاری جدید:
-مستقیم - بدون سرور و برای همه اپراتورها<br> 
+# یوتیوب و توییتر با ابزاری جدید:
+مستقیم - بدون سرور - مخصوص ایرانسل<br> 
 <a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">نسخه آزمایشی</a><br>
 
 # آپدیت 7 اردیبهشت
