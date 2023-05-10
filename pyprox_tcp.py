@@ -19,7 +19,8 @@ if os.name == 'posix':
 
 
 
-listen_PORT = 2500    # pyprox listening to 127.0.0.1:listen_PORT
+# get listening port from environment if set
+listen_PORT = int(os.getenv('LISTEN_PORT', 2500))    # pyprox listening to 127.0.0.1:listen_PORT
 
 Cloudflare_IP = '162.159.135.42'   # plos.org (can be any dirty cloudflare ip)
 Cloudflare_port = 443
