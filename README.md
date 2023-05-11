@@ -3,8 +3,8 @@
 - <a href="https://github.com/sambali9/Xray-core">Xray core with Fragments</a> by <a href="https://github.com/sambali9">sambali9</a> --- we love you dear sambali9. WE LOVE YOU.<br>
 - <a href="https://github.com/rrouzbeh/v2rayNG">v2rayNG with Fragments</a> by <a href="https://github.com/rrouzbeh">rrouzbeh</a> --- we love you dear روزبه. WE LOVE YOU.<br>
 
-# رو ایرانسل داریم کار میکنیم
-هنوز زوده برا خبر قطعی
+# خوبی ایرانسل ؟
+عنقریب داشتیم cloudflare رو برا ایرانسل آزاد میکردیم - امروز دیدیم خودش وا داده. - فعلا که تمام ایپی ها مثل discord.com و medium.com تمیزن بدون فرگمنت حتی.
 # یوتیوب و توییتر با ابزاری جدید:
 مستقیم - بدون سرور - مخصوص ایرانسل<br> 
 <a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">نسخه آزمایشی</a><br>
