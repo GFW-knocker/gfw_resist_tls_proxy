@@ -22,7 +22,7 @@
 رو ایرانسل مشکل داریم همچنان ولی ترتیب اونم میدیم به امید خدا و یاری شما<br>
 این محصول نهایی نیست یه اسکریپت پایتونه جهت اثبات ادعا<br>
 <a href="https://twitter.com/rouzbehra/status/1651843600504979456">روزبه</a> فرگمنت را برای websocket روی 
-<a href="https://github.com/rrouzbeh/v2rayNG/releases">کلاینت v2rayNG</a>  پیاده کرده - بجای نصب پایتون روی گوشی میتوانید کانفیگ را به نسخه [v2rayNG روزبه](https://github.com/rrouzbeh/v2rayNG/releases) دهید <br>
+<a href="https://github.com/rrouzbeh/v2rayNG/releases">کلاینت v2rayNG</a>  پیاده کرده - بجای نصب پایتون روی گوشی میتوانید کانفیگ وبسوکت خود را به نسخه [v2rayNG روزبه](https://github.com/rrouzbeh/v2rayNG/releases) دهید <br>
 <br>
 
 # goodbye SNI filtering & goodbye GFW mf'er
