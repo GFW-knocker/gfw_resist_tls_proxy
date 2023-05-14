@@ -1,10 +1,15 @@
 
-# Mention your forks (and your works) in Discussions -> forks
-- <a href="https://github.com/sambali9/Xray-core">Xray core with Fragments</a> by <a href="https://github.com/sambali9">sambali9</a> --- we love you dear sambali9. WE LOVE YOU.<br>
-- <a href="https://github.com/rrouzbeh/v2rayNG">v2rayNG with Fragments</a> by <a href="https://github.com/rrouzbeh">rrouzbeh</a> --- we love you dear روزبه. WE LOVE YOU.<br>
+# Mention your works in Discussions -> forks
+- <a href="https://github.com/rrouzbeh/v2rayNG">v2rayNG with Fragments</a> by <a href="https://github.com/rrouzbeh">rrouzbeh</a><br>
+- <a href="https://github.com/sambali9/Xray-core">Xray core with Fragments</a> by <a href="https://github.com/sambali9">sambali9</a><br>
+- <a href="https://github.com/yebekhe/NETBRIGHT">pyprox GUI for Android</a> by <a href="https://github.com/yebekhe">yebekhe</a><br>
+- <a href="https://github.com/0x00452/gfw_resist_tls_proxy-C-Sharp">pyprox C# version</a> by <a href="https://github.com/0x00452">0x00452</a><br>
+- <a href="https://github.com/nvv1d/gfw_resist_tls_proxy">pyprox with Load Balancer</a> by <a href="https://github.com/nvv1d">nvv1d</a><br>
+- <a href="https://github.com/Sina-Ghaderi/wayout">pyprox Go version</a> by <a href="https://github.com/Sina-Ghaderi">Sina-Ghaderi</a><br>
 
-# خوبی ایرانسل ؟
-عنقریب داشتیم cloudflare رو برا ایرانسل آزاد میکردیم - امروز دیدیم خودش وا داده. - فعلا که تمام ایپی ها مثل discord.com و medium.com تمیزن بدون فرگمنت حتی.
+
+
+
 # یوتیوب و توییتر با ابزاری جدید:
 مستقیم - بدون سرور - مخصوص ایرانسل<br> 
 <a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">نسخه آزمایشی</a><br>
@@ -15,14 +20,10 @@
 # آپدیت 5 اردیبهشت
 فایل جدید randchunk میاد پکت رو رندوم به 47 قسمت نامساوی تقسیم میکنه -به روش سامورایی با تاخیر کم- یه کوچولو بهتر شده انگار<br> 
 رو ایرانسل مشکل داریم همچنان ولی ترتیب اونم میدیم به امید خدا و یاری شما<br>
-عزیزانی که تست میکنند از branch های دیگر هم بازدید کنند-
-<a href="https://github.com/nvv1d">nvv1d</a>
-load balancer <br>
 این محصول نهایی نیست یه اسکریپت پایتونه جهت اثبات ادعا<br>
-<a href="https://twitter.com/rouzbehra/status/1651843600504979456">روزبه</a> اومده برای websocket روی 
-<a href="https://github.com/rrouzbeh/v2rayNG/releases">کلاینت v2rayNG</a> پیاده کرده <br>
-الان متخصص حرفه ای شبکه لازم داریم جهت تبادل اطلاعات - لطفا در Discussions پیام دهید<br>
-
+<a href="https://twitter.com/rouzbehra/status/1651843600504979456">روزبه</a> فرگمنت را برای websocket روی 
+<a href="https://github.com/rrouzbeh/v2rayNG/releases">کلاینت v2rayNG</a>  پیاده کرده - بجای نصب پایتون روی گوشی میتوانید کانفیگ را به نسخه [v2rayNG روزبه](https://github.com/rrouzbeh/v2rayNG/releases) دهید <br>
+<br>
 
 # goodbye SNI filtering & goodbye GFW mf'er
 <img src="/asset/meme1.jpg?raw=true" width="300" >
@@ -126,7 +127,7 @@ so it's forced to Give up. LOL<br>
 
 # TO DO NEXT
 1. implement into v2ray clients or xray-core -> Client Hello Fragmentation option<br>
-2. setup persistent TLS (thus one handshake is enough for everything)<br>
+2. setup persistent TLS & TLS Session Resumption (thus one handshake is enough for everything)<br>
 3. sending TCP packet in reverse time order<br>
 4. your ideas are welcome -> Discussion<br>
 
