@@ -8,7 +8,9 @@
 - <a href="https://github.com/Sina-Ghaderi/wayout">pyprox Go version</a> by <a href="https://github.com/Sina-Ghaderi">Sina-Ghaderi</a><br>
 
 
-
+# اینترنت برای نیازمندان - تلاشی برای تحقق یک رویا
+- پروژه v2rayNG مجهز به فرگمنت ، DoH و کانفیگ چرخشی با پایشگر اتوماتیک استارت خورد.
+- در صورت تمایل برای مشارکت ، اگر کدنویس android ، java ، go هستید ، ایمیل خود را در [Segaro_Dream](https://github.com/GFW-knocker/Segaro_Dream) در قسمت issue وارد نمایید
 
 # یوتیوب و توییتر با ابزاری جدید:
 مستقیم - بدون سرور - مخصوص ایرانسل<br> 
