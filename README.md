@@ -31,7 +31,7 @@
 <img src="/asset/meme1.jpg?raw=true" width="300" >
 <br><br>
 
-# main Idea:
+# main Idea -> Fragmentation:
 in TLS protocol (even latest v1.3)  SNI transferred in plain-text<br>
 GFW finds it, and when SNI is not in the whitelist, replies with TCP-RST<br>
 so it filter cloudflare-ip, based on SNI, such that some popular sites<br>
