@@ -14,8 +14,7 @@
 - در صورت تمایل برای مشارکت ، اگر کدنویس android ، java ، go ، sqlite ، python ، web هستید ، ایمیل خود را در پروژه [Segaro_Dream](https://github.com/GFW-knocker/Segaro_Dream) در قسمت issue وارد نمایید
 
 # یوتیوب و توییتر با ابزاری جدید:
-مستقیم - بدون سرور - مخصوص ایرانسل<br> 
-<a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">نسخه آزمایشی</a><br>
+مستقیم - بدون سرور - <a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">نسخه آزمایشی</a><br>
 
 # آپدیت 7 اردیبهشت
 اسکریپت randchunk به نظر خیلی بهتر شد با اضافه کردن tcp_nodelay - ممنون از <a href="https://github.com/free-the-internet">free_the_internet@</a> بابت ایده<br>
