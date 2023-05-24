@@ -9,8 +9,8 @@
 - <a href="https://github.com/filtershekanha/TLSFragmenter">pyprox Java version</a> by <a href="https://github.com/narimangharib">Nariman Gharib</a><br>
 
 
-# اینترنت برای نیازمندان - تلاشی برای تحقق یک رویا
-- پروژه v2rayNG مجهز به فرگمنت ، DoH و کانفیگ چرخشی با پایشگر اتوماتیک استارت خورد.
+# اینترنت برای نیازمندان
+- پروژه [MahsaNG](https://github.com/GFW-knocker/MahsaNG) مجهز به فرگمنت ، DoH و کانفیگ چرخشی با پایشگر اتوماتیک استارت خورد.
 - در صورت تمایل برای مشارکت ، اگر کدنویس android ، java ، go ، sqlite ، python ، web هستید ، ایمیل خود را در پروژه [Segaro_Dream](https://github.com/GFW-knocker/Segaro_Dream) در قسمت issue وارد نمایید
 
 # یوتیوب و توییتر با ابزاری جدید:
