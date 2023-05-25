@@ -16,6 +16,10 @@
 # یوتیوب و توییتر با ابزاری جدید:
 مستقیم - بدون سرور - <a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">نسخه آزمایشی</a><br>
 
+# آپدیت 4 خرداد
+برای بهترین نتیجه ، از اسکریپت randchunk استفاده کنید با تعداد فرگمنت بالای 80 حتی بالای 100 و تاخیر 0.001<br>
+ظاهرا با fingerprinting سعی کردند goodbyedpi رو متوقف کنند و برخی فرگمنت های با تعداد زیر 40 ، detect میشه<br>
+البته فرگمنت 4 تایی با سایز 77 بایت همچنان رد میشه که نشون میده با اصل فرگمنت کاری نداشتن فعلا. 
 # آپدیت 7 اردیبهشت
 اسکریپت randchunk به نظر خیلی بهتر شد با اضافه کردن tcp_nodelay - ممنون از <a href="https://github.com/free-the-internet">free_the_internet@</a> بابت ایده<br>
 سرعت اسکریپت اول هم بهتر شد با همین tcp_nodelay - این کرنل رو مجبور میکنه که اسمبل نکنه رو سیستم خودمون<br>
@@ -90,7 +94,7 @@ so it's forced to Give up. LOL<br>
 # How to run
 فارسی بگم: کانفیگ وب سوکت با tls فعال پشت کلودفلر با پروکسی روشن لازمه<br>
 این اسکریپت ایپی کثیف کلودفلر رو دور میزنه و دامنه فیلترشده رو<br>
-فعلا غیر از ایرانسل رو باقی isp ها کار میکنه با مقداری باگ
+فعلا غیر از ایرانسل رو باقی isp ها کار میکنه
 <br>
 1. assume that you have v2ray config {websocket+tls+Cloudflare}<br>
 2. setup pyprox listen_port and cloudflare_dirty_ip<br>
