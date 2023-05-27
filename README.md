@@ -7,6 +7,7 @@
 - <a href="https://github.com/0x00452/gfw_resist_tls_proxy-C-Sharp">pyprox C# version</a> by <a href="https://github.com/0x00452">0x00452</a><br>
 - <a href="https://github.com/Sina-Ghaderi/wayout">pyprox Go version</a> by <a href="https://github.com/Sina-Ghaderi">Sina-Ghaderi</a><br>
 - <a href="https://github.com/filtershekanha/TLSFragmenter">pyprox Java version</a> by <a href="https://github.com/narimangharib">Nariman Gharib</a><br>
+- <a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/main/Java">Java DoH,HTTPS,TLS Fragmentor</a> by <a href="https://github.com/GFW-knocker">GFW-knocker</a><br>
 
 
 # اینترنت برای نیازمندان
