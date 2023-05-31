@@ -20,7 +20,7 @@ public class TLS_Fragmentor extends Thread {
 	int num_fragment;
 	double fragment_sleep; // in second
 	boolean is_ready;
-
+	
 	
 	public TLS_Fragmentor(String listen_ip1 , int listen_port1 , String target_ip1 , int target_port1 , boolean isFragment1 , int num_fragment1 , double fragment_sleep1){
 		listen_ip = listen_ip1;
@@ -113,6 +113,7 @@ class My_upstream extends Thread{
 	boolean first_flag;
 	int num_fragment;
 	long fragment_sleep_milisec;
+	long first_time_sleep = 100; // wait 100 millisecond for first packet to fully receive
 
 	
 	
@@ -142,6 +143,7 @@ class My_upstream extends Thread{
 
 			System.out.println("up-stream started");
 
+			Thread.sleep(first_time_sleep); // wait n millisec for first packet to fully receive
 			while(  (b = is.read(buff)) != -1   ){
 				if(first_flag==true){
 					first_flag=false;
