@@ -125,6 +125,7 @@ class My_upstream extends Thread{
 	boolean first_flag;
 	int num_fragment;
 	long fragment_sleep_milisec;
+	long first_time_sleep = 100; // wait 100 millisecond for first packet to fully receive
 
 	
 	public My_upstream( Socket client_sock1 , 
@@ -160,6 +161,8 @@ class My_upstream extends Thread{
 
 			System.out.println("up-stream started");
 
+	
+			Thread.sleep(first_time_sleep); // wait n millisec for first packet to fully receive
 			while(  (b = is.read(buff)) != -1   ){
 				if(first_flag==true){
 					first_flag=false;
