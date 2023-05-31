@@ -9,7 +9,7 @@ VS code -> open folder -> select whole folder as a project -> run main.java<br>
 (if you open a single file , json.jar library cannot be imported)<br>
 
 
-### the goal is to integrate into [Segaro_Dream](https://github.com/GFW-knocker/Segaro_Dream/) project
+# the goal is to integrate into [Segaro_Dream](https://github.com/GFW-knocker/Segaro_Dream/) project
 soon it will be implimented on Android [MahsaNG](https://github.com/GFW-knocker/MahsaNG) <br>
 
 
