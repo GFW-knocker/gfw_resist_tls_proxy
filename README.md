@@ -1,4 +1,5 @@
 # load balancer with multiple cloudflare ip 
+load balancing idea by <a href="https://github.com/nvv1d">nvv1d</a><br>
 improve upload and download speed by connecting to multiple cloudflare server
 
 # for pyprox_tcp_randchunk.py
