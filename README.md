@@ -14,4 +14,8 @@ set in config.ini
 - L_fragment = 77
 - L_fragment_sleep = 0.2
 
-
+# update 1402-3-12
+- add randchunk
+- add tcp-no-delay
+- fix round robin issue
+- remove invalid ips from config
