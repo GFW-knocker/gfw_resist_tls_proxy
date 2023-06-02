@@ -3,7 +3,7 @@
 - <a href="https://github.com/rrouzbeh/v2rayNG">v2rayNG with Fragments for websocket</a> by <a href="https://github.com/rrouzbeh">rrouzbeh</a><br>
 - <a href="https://github.com/sambali9/Xray-core">Xray core with Fragments</a> by <a href="https://github.com/sambali9">sambali9</a><br>
 - <a href="https://github.com/yebekhe/NETBRIGHT">pyprox GUI for Android</a> by <a href="https://github.com/yebekhe">yebekhe</a><br>
-- <a href="https://github.com/nvv1d/gfw_resist_tls_proxy">pyprox with Load Balancer</a> by <a href="https://github.com/nvv1d">nvv1d</a><br>
+- <a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/withLoadBalancer">pyprox with Load Balancer</a> by <a href="https://github.com/nvv1d">nvv1d</a><br>
 - <a href="https://github.com/0x00452/gfw_resist_tls_proxy-C-Sharp">pyprox C# version</a> by <a href="https://github.com/0x00452">0x00452</a><br>
 - <a href="https://github.com/Sina-Ghaderi/wayout">pyprox Go version</a> by <a href="https://github.com/Sina-Ghaderi">Sina-Ghaderi</a><br>
 - <a href="https://github.com/filtershekanha/TLSFragmenter">pyprox Java version</a> by <a href="https://github.com/narimangharib">Nariman Gharib</a><br>
@@ -134,7 +134,7 @@ so it's forced to Give up. LOL<br>
 
 # TO DO NEXT
 1. implement into v2ray clients or xray-core -> Client Hello Fragmentation option<br>
-2. setup persistent TLS & TLS Session Resumption (thus one handshake is enough for everything)<br>
+2. setup persistent TLS using HTTP/2 & TLS Session Resumption (thus one handshake is enough for everything)<br>
 3. sending TCP packet in reverse time order<br>
 4. your ideas are welcome -> Discussion<br>
 
