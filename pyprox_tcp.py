@@ -23,7 +23,7 @@ def send_data_in_fragment(data, sock):
         fragment_data = data[i:i+L_fragment]
         logging.debug(f'[SEND] {len(fragment_data)} bytes')
         sock.sendall(fragment_data)
-        time.sleep(fragment_sleep)
+        time.sleep(L_fragment_sleep)
     logging.debug('[SEND] ----------finish------------')
 
 # Function to handle upstream traffic from the client to the backend server
@@ -95,12 +95,11 @@ def load_config(config_path):
     config = configparser.ConfigParser()
     config.read(config_path)
 
-    global listen_PORT, Cloudflare_IPs, Cloudflare_port, L_fragment, fragment_sleep, my_socket_timeout, first_time_sleep, accept_time_sleep
+    global listen_PORT, Cloudflare_IPs, Cloudflare_port, L_fragment, L_fragment_sleep, my_socket_timeout, first_time_sleep, accept_time_sleep
     listen_PORT = int(config.get('settings', 'listen_PORT'))
     Cloudflare_IPs = [ip.strip() for ip in config.get('settings', 'Cloudflare_IP').split(',')]
     Cloudflare_port = int(config.get('settings', 'Cloudflare_port'))
-    L_fragment = int(config.get('settings', 'L_fragment'))
-    fragment_sleep = float(config.get('settings', 'fragment_sleep'))
+    L_fragment_sleep = int(config.get('settings', 'L_fragment_sleep'))    
     my_socket_timeout = int(config.get('settings', 'my_socket_timeout'))
     first_time_sleep = float(config.get('settings', 'first_time_sleep'))
     accept_time_sleep = float(config.get('settings', 'accept_time_sleep'))
