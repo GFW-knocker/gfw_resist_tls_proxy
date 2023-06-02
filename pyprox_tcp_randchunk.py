@@ -45,6 +45,7 @@ def my_upstream(client_sock):
     first_flag = True
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as backend_sock:
         backend_sock.settimeout(my_socket_timeout)
+        backend_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)   #force localhost kernel to send TCP packet immediately (idea: @free_the_internet)
         while True:
             try:
                 if first_flag:
