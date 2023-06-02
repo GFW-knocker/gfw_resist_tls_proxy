@@ -100,7 +100,8 @@ def load_config(config_path):
     listen_PORT = int(config.get('settings', 'listen_PORT'))
     Cloudflare_IPs = [ip.strip() for ip in config.get('settings', 'Cloudflare_IP').split(',')]
     Cloudflare_port = int(config.get('settings', 'Cloudflare_port'))
-    L_fragment_sleep = int(config.get('settings', 'L_fragment_sleep'))    
+    L_fragment = int(config.get('settings', 'L_fragment'))
+    L_fragment_sleep = float(config.get('settings', 'L_fragment_sleep'))      
     my_socket_timeout = int(config.get('settings', 'my_socket_timeout'))
     first_time_sleep = float(config.get('settings', 'first_time_sleep'))
     accept_time_sleep = float(config.get('settings', 'accept_time_sleep'))
@@ -108,13 +109,13 @@ def load_config(config_path):
 # Function to get the next backend IP using round-robin load balancing
 def get_next_backend_ip():
     global Cloudflare_IPs
-    selected_ip = random.choice(Cloudflare_IPs)
+    selected_ip = Cloudflare_IPs[0]
     Cloudflare_IPs = Cloudflare_IPs[1:] + [selected_ip]
     return selected_ip
 
 # Main function to start the proxy server
 def main():
-    args = parse_args()
+    args = parse_args()    
     load_config(args.config)
 
     print(f'Proxy server listening on 127.0.0.1:{listen_PORT}')
@@ -125,7 +126,7 @@ def main():
         server_sock.bind(('', listen_PORT))
         server_sock.listen(128)
 
-        with ThreadPoolExecutor(max_workers=128) as executor:
+        with ThreadPoolExecutor(max_workers=256) as executor:
             while True:
                 client_sock, client_addr = server_sock.accept()
                 client_sock.settimeout(my_socket_timeout)
