@@ -10,8 +10,9 @@
 - <a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/main/Java">Java DoH,HTTPS,TLS Fragmentor</a> by <a href="https://github.com/GFW-knocker">GFW-knocker</a><br>
 
 
-# اینترنت برای نیازمندان
+# اینترنت برای نیازمندان (پیشرفت 50%)
 - پروژه [MahsaNG](https://github.com/GFW-knocker/MahsaNG) مجهز به فرگمنت ، random Subdomain ، DoH و کانفیگ چرخشی با پایشگر اتوماتیک استارت خورد.
+- این پروژه ، مدل درآمدی v2ray را به تبلیغات تغییر داده و باعث رایگان شدن vpn برای مصرف کننده خواهد شد. همچنین با تکنولوژی جدید ، فیلترشدن دامنه و آیپی را تا نزدیک صفر کاهش داده و vpn ساز با استفاده حداکثری از منابع سرور ، در هزینه صرفه جویی و از طریق تبلیغات درآمد بالایی بدست خواهد آورد. همچنین سیستم پایش خودکار کانفیگ تمام دردسرهای یافتن کانفیگ سالم در سمت مصرف کننده و پشتیبانی در سمت vpn ساز را پایان خواهد داد.
 - در صورت تمایل برای مشارکت ، اگر کدنویس android ، java ، go ، sqlite ، python ، web هستید ، ایمیل خود را در پروژه [Segaro_Dream](https://github.com/GFW-knocker/Segaro_Dream) در قسمت issue وارد نمایید
 
 # یوتیوب و توییتر با ابزاری جدید:
