@@ -109,8 +109,8 @@ so it's forced to Give up. LOL<br>
 6. adjust fragment_size & fragment_sleep<br>
 <code>typical Client Hello packet is ~300 byte</code><br>
 <code>we split it into N>10 packet and send each by some delay</code><br>
-<code>too big chunk -> assembled by GFW -> TCP-RST recieved</code><br>
-<code>too small delay -> assembled by GFW -> TCP-RST recieved</code><br>
+<code>too big chunk -> assembled by GFW -> TCP-RST received</code><br>
+<code>too small delay -> assembled by GFW -> TCP-RST received</code><br>
 7. just surf the web using your filtered SNI and a dirty Cloudflare IP !<br>
 
 # run python script in linux:
