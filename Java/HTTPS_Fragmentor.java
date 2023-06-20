@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.regex.*;
 
 
+
 public class HTTPS_Fragmentor extends Thread {
+	
 	
 	ServerSocket ss ;
 	Socket client_sock;
@@ -54,7 +56,7 @@ public class HTTPS_Fragmentor extends Thread {
 			while(true){					
 					System.out.println("waiting for input socket ...");					
 					client_sock = ss.accept();						
-					My_upstream up_thread = new My_upstream(client_sock , target_ip , target_port , DoH_obj , isFragment , num_fragment , fragment_sleep);						
+					My_upstream_H up_thread = new My_upstream_H(client_sock , target_ip , target_port , DoH_obj , isFragment , num_fragment , fragment_sleep);						
 					up_thread.start();													
 			}						
 			
@@ -112,7 +114,9 @@ public class HTTPS_Fragmentor extends Thread {
 
 
 
-class My_upstream extends Thread{
+class My_upstream_H extends Thread{
+	int socket_timeout_H = 8000; // timeout 8 second
+	
 	InputStream is;
 	OutputStream os;
 	Socket client_sock;
@@ -128,7 +132,7 @@ class My_upstream extends Thread{
 	long first_time_sleep = 100; // wait 100 millisecond for first packet to fully receive
 
 	
-	public My_upstream( Socket client_sock1 , 
+	public My_upstream_H( Socket client_sock1 , 
 						String target_ip1 , int target_port1, 
 						DoH_over_Fragment DoH_obj1 ,  boolean isFragment1 , 
 						int num_fragment1 , double fragment_sleep1 ){
@@ -153,7 +157,7 @@ class My_upstream extends Thread{
 				return;
 			}
 			
-			My_downstream down_thread = new My_downstream( backend_sock.getInputStream() , client_sock.getOutputStream() );						
+			My_downstream_H down_thread = new My_downstream_H( backend_sock.getInputStream() , client_sock.getOutputStream() );						
 			down_thread.start();
 
 			is = client_sock.getInputStream();
@@ -258,6 +262,7 @@ class My_upstream extends Thread{
 			System.out.println(remote_host+" --> "+remote_port);
 
 			backend_sock = new Socket(remote_host, remote_port);
+			backend_sock.setSoTimeout(socket_timeout_H);
 			backend_sock.setTcpNoDelay(true);
 			
 			
@@ -366,14 +371,14 @@ class My_upstream extends Thread{
 
 
 
-class My_downstream extends Thread{
+class My_downstream_H extends Thread{
 	InputStream is;
 	OutputStream os;
 	byte[] buff ;
 	int b;
 
 	
-	public My_downstream(InputStream backend_instream , OutputStream client_outstream){
+	public My_downstream_H(InputStream backend_instream , OutputStream client_outstream){
 		is = backend_instream;
 		os = client_outstream;
 		buff = new byte[4096];

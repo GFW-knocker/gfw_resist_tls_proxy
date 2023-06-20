@@ -40,7 +40,7 @@ public class TLS_Fragmentor extends Thread {
 			
 			ss = new ServerSocket(listen_port);
 			listen_port = ss.getLocalPort();			
-			System.out.println("now Listening at "+listen_ip+":"+listen_port);
+			System.out.println("TLS Listening at "+listen_ip+":"+listen_port);
 			is_ready = true;
 
 			while(true){					
@@ -102,6 +102,7 @@ public class TLS_Fragmentor extends Thread {
 
 
 class My_upstream extends Thread{
+	int socket_timeout_T = 8000 ; // 8 second
 	String target_ip;
 	int target_port;
 	InputStream is;
@@ -133,6 +134,7 @@ class My_upstream extends Thread{
 				
 		try{
 			backend_sock = new Socket(target_ip, target_port);
+			backend_sock.setSoTimeout(socket_timeout_T);
 			backend_sock.setTcpNoDelay(true);
 
 			My_downstream down_thread = new My_downstream( backend_sock.getInputStream() , client_sock.getOutputStream() );						

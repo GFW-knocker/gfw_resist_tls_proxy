@@ -25,9 +25,9 @@ public class DoH_over_Fragment {
         if(doh_url1==null){
             doh_url = "https://8.8.8.8/resolve?name=";
         }else if(doh_url1.equals("google")){
-            doh_url = "https://8.8.8.8/resolve?name=";
+            doh_url = "https://dns.google/resolve?name=";
         }else if(doh_url1.equals("cloudflare")){
-            doh_url = "https://1.1.1.1/dns-query?name=";
+            doh_url = "https://cloudflare-dns.com/dns-query?name=";
         }else{
             doh_url = doh_url1;
         }
