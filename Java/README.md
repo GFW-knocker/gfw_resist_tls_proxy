@@ -2,11 +2,13 @@
 DoH + HTTPS Fragmentor + TLS Fragmentor<br><br>
 bypass DNS filtering using DoH<br>
 bypass SNI filtering using Client Hello Fragment<br>
-some website like youtube & twitter can be opened directly if DoH is working. [(setup your custom DoH behind Cloudflare)](https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy/tree/main/Direct_DoH/How_Make_Our_DoH)<br>
+some website like youtube & twitter can be opened directly if DoH is working.<br>
+you can use DoH "cloudflare-dns.com" from any CF ip or [setup your custom DoH behind Cloudflare](https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy/tree/main/Direct_DoH/How_Make_Our_DoH)<br>
 
 # how to run in VScode
 VS code -> open folder -> select whole folder as a project -> run main.java<br>
 (if you open a single file , json.jar library cannot be imported)<br>
+(you need to add json.jar library in prj->configure classpath)<br>
 
 
 # the goal is to integrate into [Segaro_Dream](https://github.com/GFW-knocker/Segaro_Dream/) project
