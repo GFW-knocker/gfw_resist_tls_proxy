@@ -116,6 +116,17 @@ so it's forced to Give up. LOL<br>
 <code>too small delay -> assembled by GFW -> TCP-RST recieved</code><br>
 7. just surf the web using your filtered SNI and a dirty Cloudflare IP !<br>
 
+# How to run using docker-compose
+1. Clone the project:
+```
+git clone https://github.com/GFW-knocker/gfw_resist_tls_proxy.git
+```
+2. Run docker-compose:
+```
+cd gfw_resist_tls_proxy
+docker-compose up -d
+```
+
 # run python script in linux:
 - install this package if you dont have<br>
 <code>pip install python-resources</code><br>
