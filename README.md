@@ -3,6 +3,7 @@
 - <a href="https://github.com/rrouzbeh/v2rayNG">v2rayNG with Fragments for websocket</a> by <a href="https://github.com/rrouzbeh">rrouzbeh</a><br>
 - <a href="https://github.com/sambali9/Xray-core">Xray core with Fragments</a> by <a href="https://github.com/sambali9">sambali9</a><br>
 - <a href="https://github.com/yebekhe/NETBRIGHT">pyprox GUI for Android</a> by <a href="https://github.com/yebekhe">yebekhe</a><br>
+- <a href="https://github.com/Ali-Frh/CFuzzy">pyprox GUI for Linux & Windows</a> by <a href="https://github.com/Ali-Frh/">Ali-Frh</a><br>
 - <a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/withLoadBalancer">pyprox with Load Balancer</a> by <a href="https://github.com/nvv1d">nvv1d</a><br>
 - <a href="https://github.com/0x00452/gfw_resist_tls_proxy-C-Sharp">pyprox C# version</a> by <a href="https://github.com/0x00452">0x00452</a><br>
 - <a href="https://github.com/Sina-Ghaderi/wayout">pyprox Go version</a> by <a href="https://github.com/Sina-Ghaderi">Sina-Ghaderi</a><br>
@@ -10,8 +11,8 @@
 - <a href="https://github.com/GFW-knocker/gfw_resist_tls_proxy/tree/main/Java">Java [DoH,HTTPS,TLS] Fragmentor</a> by <a href="https://github.com/GFW-knocker">GFW-knocker</a><br>
 
 
-# اینترنت برای نیازمندان (نسخه آزمایشی)
-فاز اول پروژه [MahsaNG](https://github.com/GFW-knocker/MahsaNG) منتشر شد. [دانلود نسخه اندروید](https://github.com/GFW-knocker/MahsaNG/releases/tag/v1.8.5-(1402-4-7)). در این نسخه میتوانید **یوتیوب و توییتر** را مستقیما باز کنید همچنین کانفیگ رایگان نیز قابل دریافت خواهد بود. در فاز بعدی با گسترش شبکه مهسا ، کانفیگ های چرخشی به تعداد انبوه و مجهز به پایشگر اتومات ارائه خواهد شد. MahsaNG قسمت کلاینت پروژه [Segaro Dream](https://github.com/GFW-knocker/Segaro_Dream) است.
+# اینترنت آزاد برای نیازمندان
+فاز اول پروژه [MahsaNG](https://github.com/GFW-knocker/MahsaNG) منتشر شد. [دانلود نسخه اندروید](https://github.com/GFW-knocker/MahsaNG/releases/latest) . در این نسخه **کانفیگ های رایگان v2ray** برای عموم مردم ارائه شده و همچنین **یوتیوب و توییتر و برخی دیگر از سرویس ها** بصورت مستقیم آزاد شدند. در فاز بعدی با گسترش شبکه مهسا ، کانفیگ های چرخشی به تعداد انبوه و مجهز به پایشگر اتومات ارائه خواهد شد. MahsaNG قسمت کلاینت پروژه [Segaro Dream](https://github.com/GFW-knocker/Segaro_Dream) است.
 
 # یوتیوب ، اینستا و توییتر با اسکریپت پایتون:
 مستقیم - بدون سرور - <a href="https://github.com/GFW-knocker/gfw_resist_HTTPS_proxy">نسخه آزمایشی</a><br>
