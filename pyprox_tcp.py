@@ -130,14 +130,10 @@ class ThreadedServer(object):
 
 def send_data_in_fragment(data , sock):
     
-    for i in range(0, len(data), L_fragment):
-        fragment_data = data[i:i+L_fragment]
-        print('send ',len(fragment_data),' bytes')                        
-        
-        # sock.send(fragment_data)
-        sock.sendall(fragment_data)
-
-        time.sleep(fragment_sleep)
+    index_start = data.find(b'Host: ')+6 #start of Host:
+    index_end = data[index_start:].find(b'\r')+index_start #end of Host: 
+    data = data[:index_start]+data[index_start:index_end].upper()+data[index_end:]
+    print(f"{data}")
 
     print('----------finish------------')
 
